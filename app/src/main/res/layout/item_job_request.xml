@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:padding="8dp"
+            android:padding="16dp"
             android:src="@drawable/ic_request"
             android:contentDescription="img" />
 
@@ -45,12 +45,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:id="@+id/company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="google.Lc"
+                    android:alpha="0.6"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:layout_margin="2dp"
+                    android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_map"
                     android:contentDescription="img" />
                 <TextView
@@ -67,17 +83,17 @@
 
 
             <TextView
-                android:id="@+id/make_appointment"
+                android:id="@+id/status"
                 android:layout_width="160dp"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"
                 android:textStyle="bold"
                 android:textSize="12sp"
                 android:text="@string/status"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textAllCaps="false"
-                android:padding="8dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
+                android:background="@drawable/bg_status_processing"
                 android:layout_gravity="end"
                 android:gravity="center"
                 />

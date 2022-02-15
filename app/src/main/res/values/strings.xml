@@ -37,4 +37,12 @@
     <string name="jobs_requests">Jobs Requests</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="position">Position</string>
+    <string name="company">Company</string>
+    <string name="details">Details</string>
+    <string name="reuired_skilld">Required Skills</string>
+
+    <string name="status_rejected">Rejected</string>
+    <string name="status_processing">Processing</string>
+    <string name="status_accepted">Accepted</string>
 </resources>
