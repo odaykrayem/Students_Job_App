@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.example.students_job_app.R;
@@ -29,58 +30,42 @@ public class StudentSignupActivity extends AppCompatActivity {
         birthDateET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                birthDateET.setSelected(true);
-                studyStartDateET.setSelected(false);
-                studyEndDateET.setSelected(false);
+                final DatePickerDialog  picker = new DatePickerDialog(StudentSignupActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        birthDateET.setText(""+year+"/"+monthOfYear+"/"+dayOfMonth);
+                    }
 
-                new DatePickerDialog(StudentSignupActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
+                picker.show();
             }
         });
 
         studyStartDateET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                birthDateET.setSelected(false);
-                studyStartDateET.setSelected(true);
-                studyEndDateET.setSelected(false);
-                new DatePickerDialog(StudentSignupActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                final DatePickerDialog  picker = new DatePickerDialog(StudentSignupActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        studyStartDateET.setText(""+year+"/"+monthOfYear+"/"+dayOfMonth);
+                    }
+
+                }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
+                picker.show();
             }
         });
         studyEndDateET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                birthDateET.setSelected(false);
-                studyStartDateET.setSelected(false);
-                studyEndDateET.setSelected(true);
+                final DatePickerDialog  picker = new DatePickerDialog(StudentSignupActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        studyEndDateET.setText(""+year+"/"+monthOfYear+"/"+dayOfMonth);
+                    }
 
-                new DatePickerDialog(StudentSignupActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)){
-
-                }.show();
-
+                }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
+                picker.show();
             }
+
         });
     }
 
-    DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
-        myCalendar.set(Calendar.YEAR, year);
-        myCalendar.set(Calendar.MONTH, monthOfYear);
-        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String myFormat = "yyyy-MM-dd"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        if(birthDateET.isSelected()){
-            birthDateET.setText(sdf.format(myCalendar.getTime()));
-        }else if(studyStartDateET.isSelected()){
-            studyStartDateET.setText(sdf.format(myCalendar.getTime()));
-        }else{
-            studyEndDateET.setText(sdf.format(myCalendar.getTime()));
-
-        }
-    };
 }
