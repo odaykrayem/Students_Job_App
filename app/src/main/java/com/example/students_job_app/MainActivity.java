@@ -1,4 +1,4 @@
-package com.mrmindteam.students_job_app;
+package com.example.students_job_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 

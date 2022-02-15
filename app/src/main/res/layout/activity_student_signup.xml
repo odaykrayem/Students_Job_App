@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".LoginActivity"
+    android:layoutDirection="ltr"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_input"
+            android:hint="@string/hint_user_name"
+            android:inputType="text"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_input"
+            android:hint="@string/hint_email"
+            android:inputType="text"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_input"
+            android:hint="@string/hint_password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_input"
+            android:hint="@string/hint_name"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
+        <EditText
+            android:id="@+id/nick_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_input"
+            android:hint="@string/hint_nick_name"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_input"
+            android:hint="@string/hint_phone"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
+        <EditText
+            android:id="@+id/birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_input"
+            android:hint="@string/hint_birth"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
+        <RadioGroup
+            android:id="@+id/gender_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:weightSum="2"
+
+            >
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:buttonTint="@color/white"
+                android:text="@string/male"
+                android:layout_weight="1"/>
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:buttonTint="@color/white"
+                android:text="@string/female"
+                android:layout_weight="1"/>
+
+
+        </RadioGroup>
+
+        <!-- Login Button -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@android:color/black"
+            android:alpha="0.6"
+            android:layout_marginBottom="10dp"
+            android:padding="0dp"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:text="@string/study_details"
+            android:layout_marginBottom="10dp"
+
+            />
+        <EditText
+            android:id="@+id/place_of_study"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_input"
+            android:hint="@string/hint_place_of_study"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
+        <EditText
+            android:id="@+id/type_of_study"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_input"
+            android:hint="@string/hint_type_of_study"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
+
+        <EditText
+            android:id="@+id/start_of_study"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_input"
+            android:hint="@string/hint_start_of_study"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:weightSum="6"
+            >
+            <EditText
+                android:id="@+id/end_of_study"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_input"
+                android:hint="@string/hint_end_of_study"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint"
+                />
+
+            <CheckBox
+                android:id="@+id/ongoing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Ongoing"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                />
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/uploadCV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_input"
+            android:text="@string/upload_cv"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnSignup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/bg_login_btn"
+            android:text="@string/signup"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <!-- Link to Login Screen -->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="2">
+            <Button
+                android:id="@+id/btnLinkToLoginScreen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dip"
+                android:background="@null"
+                android:text="@string/btn_link_to_login"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/btnLinkToRegisterCompany"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dip"
+                android:background="@null"
+                android:text="@string/btn_link_to_register_company"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

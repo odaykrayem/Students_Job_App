@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">Students_Job_App</string>
+    <string name="hint_user_name">User name</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_nick_name">Nick name</string>
+    <string name="hint_phone">Phone</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="hint_birth">Date of birth</string>
+    <string name="btn_link_to_register">Not registered yet. register now</string>
+    <string name="login">Login</string>
+    <string name="signup">Signup</string>
+    <string name="btn_link_to_login">Already registered. login</string>
+    <string name="study_details">Study details</string>
+    <string name="hint_place_of_study">Place of study</string>
+    <string name="hint_type_of_study">Type of study</string>
+    <string name="hint_start_of_study">Study start date</string>
+    <string name="hint_end_of_study">Study end date</string>
+    <string name="student">Student</string>
+    <string name="advertiser">Advertiser</string>
+    <string name="btn_link_to_register_company">Or  register as a company</string>
+    <string name="hint_company_name">Company name</string>
+    <string name="hint_location">Location</string>
+    <string name="hint_prof_field">Proffessional Field</string>
+    <string name="hint_years_of_corp">Years of corporation</string>
+    <string name="btn_link_to_register_student">Or  register as a student</string>
+    <string name="upload_cv">Upload Cv</string>
+    <string name="search_job">Search for a job</string>
+    <string name="apply">Apply</string>
+    <string name="job_name">Job name</string>
+    <string name="job_location">Job location</string>
 </resources>
