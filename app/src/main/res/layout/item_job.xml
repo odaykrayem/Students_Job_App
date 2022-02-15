@@ -84,7 +84,7 @@
 
 
             <Button
-                android:id="@+id/make_appointment"
+                android:id="@+id/apply"
                 android:layout_width="160dp"
                 android:layout_height="35dp"
                 android:textStyle="bold"

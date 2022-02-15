@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="50dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
@@ -33,29 +32,17 @@
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
         <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/bg_input"
-            android:hint="@string/hint_email"
-            android:inputType="text"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint" />
-        <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_input"
             android:hint="@string/hint_password"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint"
-            android:inputType="textPassword"/>
+            android:textColorHint="@color/input_login_hint" />
         <EditText
             android:id="@+id/name"
             android:layout_width="match_parent"
@@ -63,6 +50,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_input"
             android:hint="@string/hint_name"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
@@ -74,6 +62,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_input"
             android:hint="@string/hint_nick_name"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
@@ -85,6 +74,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_input"
             android:hint="@string/hint_phone"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
@@ -96,41 +86,17 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_input"
             android:hint="@string/hint_birth"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint" />
-        <RadioGroup
-            android:id="@+id/gender_selector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
-            android:weightSum="2"
+            android:textColorHint="@color/input_login_hint"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
 
-            >
-            <RadioButton
-                android:id="@+id/male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:buttonTint="@color/white"
-                android:text="@string/male"
-                android:layout_weight="1"/>
-            <RadioButton
-                android:id="@+id/female"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:buttonTint="@color/white"
-                android:text="@string/female"
-                android:layout_weight="1"/>
-
-
-        </RadioGroup>
-
-        <!-- Login Button -->
         <View
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
@@ -157,6 +123,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_input"
             android:hint="@string/hint_place_of_study"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
@@ -168,6 +135,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_input"
             android:hint="@string/hint_type_of_study"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
@@ -180,10 +148,16 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_input"
             android:hint="@string/hint_start_of_study"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint" />
+            android:textColorHint="@color/input_login_hint"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -200,10 +174,15 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_input"
                 android:hint="@string/hint_end_of_study"
-                    android:padding="10dp"
+                android:inputType="textPassword"
+                android:padding="10dp"
                 android:singleLine="true"
                 android:textColor="@color/input_login"
                 android:textColorHint="@color/input_login_hint"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 />
 
             <CheckBox
@@ -229,7 +208,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btnSignup"
+            android:id="@+id/update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -240,40 +219,7 @@
             android:textColor="@color/black"
             android:textStyle="bold" />
 
-        <!-- Link to Login Screen -->
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="40dp"
-            android:layout_weight="2">
-            <Button
-                android:id="@+id/btnLinkToLoginScreen"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dip"
-                android:background="@null"
-                android:text="@string/btn_link_to_login"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:layout_weight="1"/>
-
-            <Button
-                android:id="@+id/btnLinkToRegisterCompany"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dip"
-                android:background="@null"
-                android:text="@string/btn_link_to_register_company"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
 
 
 
