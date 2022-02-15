@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:padding="8dp"
-            android:src="@drawable/ic_job"
+            android:src="@drawable/ic_request"
             android:contentDescription="img" />
 
         <LinearLayout
@@ -66,20 +66,20 @@
 
 
 
-            <Button
+            <TextView
                 android:id="@+id/make_appointment"
                 android:layout_width="160dp"
                 android:layout_height="35dp"
                 android:textStyle="bold"
                 android:textSize="12sp"
-                android:text="@string/apply"
-                android:textColor="@color/white"
+                android:text="@string/status"
+                android:textColor="@color/black"
                 android:textAllCaps="false"
                 android:padding="8dp"
-                android:background="@drawable/bg_login_btn"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="end"
+                android:gravity="center"
                 />
 
         </LinearLayout>

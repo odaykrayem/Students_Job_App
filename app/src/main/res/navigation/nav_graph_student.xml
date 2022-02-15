@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/menu_dialysis_centers">
+
+    <fragment
+        android:id="@+id/menu_dialysis_centers"
+        android:name="com.example.kidneyhealthapp.fragments.patient.DialysisCentersFragment"
+        android:label="DialysisCentersFragment"
+        tools:layout="@layout/fragment_dialysis_centers"
+        />
+    <fragment
+        android:id="@+id/menu_appointments"
+        android:name="com.example.kidneyhealthapp.fragments.patient.MyAppointmentsFragment"
+        android:label="fragment_my_appointments"
+        tools:layout="@layout/fragment_my_appointments" />
+    <fragment
+        android:id="@+id/doctorsChatList"
+        android:name="com.example.kidneyhealthapp.fragments.patient.DoctorsChatList"
+        android:label="fragment_doctors_chat_list"
+        tools:layout="@layout/fragment_doctors_chat_list" >
+        <action
+            android:id="@+id/action_doctorsChatList_to_chattingFragment"
+            app:destination="@id/chattingFragment"
+            app:popUpTo="@id/doctorsChatList"/>
+    </fragment>
+    <fragment
+        android:id="@+id/chattingFragment"
+        android:name="com.example.kidneyhealthapp.fragments.patient.ChattingWithDoctorFragment"
+        android:label="fragment_chatting"
+        tools:layout="@layout/fragment_chatting" >
+        <action
+            android:id="@+id/action_chattingFragment_to_doctorInstructionsFragment"
+            app:destination="@id/doctorInstructionsFragment"
+            app:popUpTo="@id/chattingFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/doctorInstructionsFragment"
+        android:name="com.example.kidneyhealthapp.fragments.patient.DoctorInstructionsFragment"
+        android:label="fragment_doctor_instructions"
+        tools:layout="@layout/fragment_doctor_instructions" />
+</navigation>
