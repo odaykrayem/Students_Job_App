@@ -11,7 +11,7 @@
         android:id="@+id/menu_jobs_requests"
         android:icon="@drawable/ic_request"
         android:title="@string/jobs_requests"
-        android:actionLayout="@layout/fragment_my_jobs"
+        android:actionLayout="@layout/fragment_my_applications"
         />
 
 

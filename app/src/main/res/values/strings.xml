@@ -56,4 +56,8 @@
     <string name="interests">Interests</string>
     <string name="show_cv">Show cv</string>
     <string name="update_profile">Update profile</string>
+    <string name="confirmation_dialog">Confirm Application</string>
+    <string name="are_you_sure_you_application">Are you sure you want to apply for this job ?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>
