@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.students_job_app.R;
 
 public class StudentUpdateProfileFragment extends Fragment {
+
+    Button addCourseBtn, addInterestBtn;
 
 
     public StudentUpdateProfileFragment() {
@@ -33,5 +36,20 @@ public class StudentUpdateProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        bindViews(view);
+
+        addCourseBtn.setOnClickListener(v -> {
+            //todo go to add courses fragment
+        });
+
+        addInterestBtn.setOnClickListener(v -> {
+            // TODO: go to add interests fragment
+        });
+    }
+
+    private void bindViews(View view) {
+        addCourseBtn = view.findViewById(R.id.add_courses);
+        addInterestBtn = view.findViewById(R.id.add_interests);
     }
 }

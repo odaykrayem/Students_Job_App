@@ -26,7 +26,7 @@
     <string name="hint_prof_field">Proffessional Field</string>
     <string name="hint_years_of_corp">Years of corporation</string>
     <string name="btn_link_to_register_student">Or  register as a student</string>
-    <string name="upload_cv">Upload Cv</string>
+    <string name="upload_cv">Upload CV</string>
     <string name="search_job">Search for a job</string>
     <string name="apply">Apply</string>
     <string name="job_name">Job name</string>
@@ -45,4 +45,15 @@
     <string name="status_rejected">Rejected</string>
     <string name="status_processing">Processing</string>
     <string name="status_accepted">Accepted</string>
+    <string name="Update">Update</string>
+    <string name="add_courses">Add courses</string>
+    <string name="add_interests">Add interests</string>
+    <string name="hint_institution">Institution</string>
+    <string name="hint_course_name">Course name</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="Courses">Courses</string>
+    <string name="to">To</string>
+    <string name="interests">Interests</string>
+    <string name="show_cv">Show cv</string>
+    <string name="update_profile">Update profile</string>
 </resources>
