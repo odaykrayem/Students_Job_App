@@ -24,7 +24,7 @@
     <string name="hint_company_name">Company name</string>
     <string name="hint_location">Location</string>
     <string name="hint_prof_field">Proffessional Field</string>
-    <string name="hint_years_of_corp">Years of corporation</string>
+    <string name="hint_years_of_incorp">Years of incorporation</string>
     <string name="btn_link_to_register_student">Or  register as a student</string>
     <string name="upload_cv">Upload CV</string>
     <string name="search_job">Search for a job</string>
@@ -60,4 +60,14 @@
     <string name="are_you_sure_you_application">Are you sure you want to apply for this job ?</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="student_name">Student name</string>
+    <string name="date">Date</string>
+    <string name="delete">Delete</string>
+    <string name="hint_company_description">Company Description</string>
+    <string name="hint_professional_fields">"Professional Fields "</string>
+    <string name="hint_website">Website</string>
+    <string name="hint_address">Address</string>
+    <string name="company_professional_fields">Professional Fields</string>
 </resources>
