@@ -88,7 +88,13 @@
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint" />
+            android:textColorHint="@color/input_login_hint"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+
+            />
         <EditText
             android:id="@+id/birth"
             android:layout_width="match_parent"
@@ -183,7 +189,13 @@
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint" />
+            android:textColorHint="@color/input_login_hint"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -204,6 +216,11 @@
                 android:singleLine="true"
                 android:textColor="@color/input_login"
                 android:textColorHint="@color/input_login_hint"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+
                 />
 
             <CheckBox
