@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Students_Job_App</string>
+    <string name="app_name">Students Job App</string>
     <string name="hint_user_name">User name</string>
     <string name="hint_password">Password</string>
     <string name="hint_email">Email</string>
@@ -70,4 +70,29 @@
     <string name="hint_website">Website</string>
     <string name="hint_address">Address</string>
     <string name="company_professional_fields">Professional Fields</string>
+    <string name="please_enter_end_study">Please enter end study date</string>
+    <string name="missing_fields_message">Please fill all fields</string>
+    <string name="please_upload_cv">Please upload cv</string>
+    <string name="title_profile">My Profile</string>
+    <string name="title_jobs">Jobs List</string>
+    <string name="title_job_details">Job Details</string>
+    <string name="title_applications">My applications</string>
+    <string name="refuse">Refuse</string>
+    <string name="title_update_profile">Update Profile</string>
+    <string name="title_add_course">Add course</string>
+    <string name="title_choose_interest">Choose Interests</string>
+    <string name="add_interest">Add interest</string>
+    <string name="add_new_interests">Add New Interests</string>
+    <string name="hint_interest">Interest</string>
+    <string name="payment_info">Payment Info</string>
+    <string name="card_number">Card Number</string>
+    <string name="expiry_date">expire date</string>
+    <string name="_continue">Continue</string>
+    <string name="cvv">CVV</string>
+    <string name="hint_code">code</string>
+    <string name="enter_code">Enter the code sent to your email</string>
+    <string name="verify">Verify</string>
+    <string name="verification_error">Code is invalid please enter the correct one</string>
+    <string name="course_added">Course added successfully</string>
+    <string name="course_added_error">Error adding course</string>
 </resources>

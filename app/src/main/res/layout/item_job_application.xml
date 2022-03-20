@@ -41,22 +41,14 @@
                 android:text="@string/job_name"
                 android:textColor="@color/black"
                 />
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/company"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="4dp">
-
-                <TextView
-                    android:id="@+id/company"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="google.Lc"
-                    android:alpha="0.6"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                android:text="google.Lc"
+                android:alpha="0.6"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,24 +75,24 @@
 
 
 
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_marginTop="8dp"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:text="@string/status"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:background="@drawable/bg_status_processing"
-                android:layout_gravity="end"
-                android:gravity="center"
-                />
+
 
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:text="@string/status"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_status_processing"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:layout_alignParentEnd="true"
+            />
     </LinearLayout>
 
 </RelativeLayout>

@@ -20,43 +20,6 @@
         android:paddingRight="20dp">
 
         <EditText
-            android:id="@+id/user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/bg_input"
-            android:hint="@string/hint_user_name"
-            android:inputType="text"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint" />
-
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/bg_input"
-            android:hint="@string/hint_name"
-            android:inputType="textPersonName"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint" />
-        <EditText
-            android:id="@+id/nick_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/bg_input"
-            android:hint="@string/hint_nick_name"
-            android:inputType="textPersonName"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint" />
-        <EditText
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,23 +31,7 @@
             android:singleLine="true"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
-        <EditText
-            android:id="@+id/birth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/bg_input"
-            android:hint="@string/hint_birth"
-            android:inputType="date"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            />
+
 
         <View
             android:layout_width="match_parent"
@@ -126,23 +73,6 @@
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
 
-        <EditText
-            android:id="@+id/start_of_study"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/bg_input"
-            android:hint="@string/hint_start_of_study"
-            android:inputType="date"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            />
 
         <LinearLayout
             android:layout_width="match_parent"

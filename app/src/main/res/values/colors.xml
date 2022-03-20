@@ -12,13 +12,15 @@
     <color name="input_register_bg">#3b4148</color>
     <color name="input_register_hint">#5e6266</color>
 
+    <color name="silver">#C0C0C0</color>
+    <color name="gold">#FFD700</color>
 
-
-    <color name="status_rejected">#d9534f</color>
-    <color name="status_processing">#f0ad4e</color>
-    <color name="status_accepted">#5cb85c</color>
+    <color name="status_rejected">#ED3833</color>
+    <color name="status_processing">#FBB654</color>
+    <color name="status_accepted">#41D141</color>
 
     <color name="primaryTextColor">#A800FF48</color>
     <color name="primaryTextColorDark">#A8037323</color>
+    <color name="purple_200">#CE93D8</color>
 
 </resources>

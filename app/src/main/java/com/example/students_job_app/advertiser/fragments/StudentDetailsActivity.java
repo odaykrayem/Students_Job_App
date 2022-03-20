@@ -1,4 +1,4 @@
-package com.example.students_job_app.advertiser;
+package com.example.students_job_app.advertiser.fragments;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.students_job_app.R;
 
-public class CompanySignupActivity extends AppCompatActivity {
+public class StudentDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_company_signup);
+        setContentView(R.layout.activity_student_details);
     }
 }

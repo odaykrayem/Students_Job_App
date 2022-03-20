@@ -2,14 +2,68 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph">
-<!--    app:startDestination="@id/menu_dialysis_centers">-->
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/menu_jobs">
 
-<!--    <fragment-->
-<!--        android:id="@+id/menu_dialysis_centers"-->
-<!--        android:name="com.example.kidneyhealthapp.fragments.patient.DialysisCentersFragment"-->
-<!--        android:label="DialysisCentersFragment"-->
-<!--        tools:layout="@layout/fragment_dialysis_centers"-->
-<!--        />-->
-
+    <fragment
+        android:id="@+id/menu_jobs"
+        android:name="com.example.students_job_app.student.fragments.JobsOpportunitiesFragment"
+        android:label="@string/title_jobs"
+        tools:layout="@layout/fragment_job_opportunities"
+        >
+        <action
+            android:id="@+id/action_jobsFragment_to_jobDetailsFragment"
+            app:destination="@id/JobDetailsFragment"
+            app:popUpTo="@id/menu_jobs" />
+    </fragment>
+    <fragment
+        android:id="@+id/JobDetailsFragment"
+        android:name="com.example.students_job_app.student.fragments.JobDetailsFragment"
+        android:label="@string/title_job_details"
+        tools:layout="@layout/fragment_job_details"
+        />
+    <fragment
+        android:id="@+id/menu_applications"
+        android:name="com.example.students_job_app.student.fragments.StudentProfileFragment"
+        android:label="@string/title_applications"
+        tools:layout="@layout/fragment_my_applications"
+        />
+    <fragment
+        android:id="@+id/menu_student_profile"
+        android:name="com.example.students_job_app.student.fragments.StudentProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_student_profile"
+        >
+        <action
+            android:id="@+id/action_profileFragment_to_updateProfileFragment"
+            app:destination="@id/UpdateProfileFragment"
+            app:popUpTo="@id/menu_student_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/UpdateProfileFragment"
+        android:name="com.example.students_job_app.student.fragments.StudentUpdateProfileFragment"
+        android:label="@string/title_update_profile"
+        tools:layout="@layout/fragment_student_update_profile"
+        >
+        <action
+            android:id="@+id/action_updateProfileFragment_to_addCourseFragment"
+            app:destination="@id/AddCourseFragment"
+            app:popUpTo="@id/UpdateProfileFragment" />
+        <action
+            android:id="@+id/action_updateProfileFragment_to_chooseInterestsFragment"
+            app:destination="@id/ChooseInterestFragment"
+            app:popUpTo="@id/UpdateProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AddCourseFragment"
+        android:name="com.example.students_job_app.student.fragments.AddCourseFragment"
+        android:label="@string/title_add_course"
+        tools:layout="@layout/fragment_add_course"
+        />
+    <fragment
+        android:id="@+id/ChooseInterestFragment"
+        android:name="com.example.students_job_app.student.fragments.AddInterestFragment"
+        android:label="@string/title_choose_interest"
+        tools:layout="@layout/fragment_add_interest"
+        />
 </navigation>

@@ -89,11 +89,6 @@
             android:singleLine="true"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-
             />
         <EditText
             android:id="@+id/birth"
@@ -104,7 +99,10 @@
             android:hint="@string/hint_birth"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/input_login"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"            android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
         <RadioGroup
             android:id="@+id/gender_selector"
@@ -200,7 +198,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal"
             android:weightSum="6"
             >
@@ -264,30 +262,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="40dp"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:layout_marginBottom="30dp">
             <Button
                 android:id="@+id/btnLinkToLoginScreen"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dip"
+                android:layout_marginTop="20dp"
                 android:background="@null"
                 android:text="@string/btn_link_to_login"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="15dp"
+                android:textSize="10dp"
                 android:layout_weight="1"/>
 
             <Button
-                android:id="@+id/btnLinkToRegisterCompany"
+                android:id="@+id/btnLinkToRegisterAdvertiser"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dip"
+                android:layout_marginTop="20dp"
                 android:background="@null"
                 android:text="@string/btn_link_to_register_company"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="15dp"
+                android:textSize="10dp"
                 android:layout_weight="1"/>
 
         </LinearLayout>

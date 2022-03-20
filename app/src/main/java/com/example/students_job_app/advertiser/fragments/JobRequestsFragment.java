@@ -1,7 +1,10 @@
 package com.example.students_job_app.advertiser.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,6 +15,13 @@ import com.example.students_job_app.R;
 
 
 public class JobRequestsFragment extends Fragment {
+
+    Context ctx;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.ctx = context;
+    }
 
     public JobRequestsFragment() {
         // Required empty public constructor
@@ -26,5 +36,10 @@ public class JobRequestsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_job_requests, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 }

@@ -5,15 +5,26 @@
         android:id="@+id/menu_jobs"
         android:icon="@drawable/ic_job"
         android:title="@string/jobs_list"
-        android:actionLayout="@layout/fragment_jobs"
+        android:actionLayout="@layout/fragment_job_opportunities"
         />
     <item
-        android:id="@+id/menu_jobs_requests"
+        android:id="@+id/menu_applications"
         android:icon="@drawable/ic_request"
+        android:title="@string/title_applications"
+        android:actionLayout="@layout/fragment_job_opportunities"
+        />
+    <item
+        android:id="@+id/menu_student_profile"
+        android:icon="@drawable/ic_profile"
         android:title="@string/jobs_requests"
         android:actionLayout="@layout/fragment_my_applications"
         />
-
+    <item
+        android:id="@+id/menu_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/jobs_requests"
+        android:actionLayout="@layout/fragment_my_applications"
+        />
 
 </group>
 
