@@ -8,7 +8,10 @@ public class Course {
     private String startDate;
     private String EndDate;
 
-    public Course(String name, String institution, String startDate, String endDate) {
+
+
+    public Course(int id, String name, String institution, String startDate, String endDate) {
+        this.id = id;
         this.name = name;
         this.institution = institution;
         this.startDate = startDate;

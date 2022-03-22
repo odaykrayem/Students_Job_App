@@ -38,15 +38,12 @@ public class MyApplicationsFragment extends Fragment {
         super.onAttach(context);
         this.ctx = context;
     }
-    public MyApplicationsFragment() {
-    }
 
-
+    public MyApplicationsFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -69,10 +66,10 @@ public class MyApplicationsFragment extends Fragment {
         mAdapter = new MyApplicationsAdapter(ctx, list);
 
         mList.setAdapter(mAdapter);
-
     }
 
     private void get_applications(){
+        //Todo api
         String url = Urls.GET_APPLICATIONS;
         String id = String.valueOf(SharedPrefManager.getInstance(ctx).getUserId());
 

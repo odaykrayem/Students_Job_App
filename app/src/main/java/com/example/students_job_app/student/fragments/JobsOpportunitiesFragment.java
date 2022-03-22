@@ -17,13 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.students_job_app.R;
+import com.example.students_job_app.model.Interest;
 import com.example.students_job_app.model.JobOpportunity;
 import com.example.students_job_app.student.OnButtonClickedListener;
+import com.example.students_job_app.student.adapters.InterestsAdapter;
 import com.example.students_job_app.student.adapters.JobsOpportunitiesAdapter;
 import com.example.students_job_app.utils.Urls;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,20 +45,16 @@ public class JobsOpportunitiesFragment extends Fragment implements OnButtonClick
         super.onAttach(context);
         this.ctx = context;
     }
-    public JobsOpportunitiesFragment() {
-        // Required empty public constructor
-    }
+    public JobsOpportunitiesFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_applications, container, false);
     }
 
@@ -66,18 +66,58 @@ public class JobsOpportunitiesFragment extends Fragment implements OnButtonClick
         pDialog.setCancelable(false);
         pDialog.setMessage("Processing please wait ...");
 
-        list = new ArrayList<JobOpportunity>(){{
-            add(new JobOpportunity(1, "android developer", "comapny", "jaddah", "junior android developer", "2 years of experience in java", "we are lookin for motivative developer"));
-            add(new JobOpportunity(1, "android developer", "comapny", "jaddah", "junior android developer", "2 years of experience in java", "we are lookin for motivative developer"));
-            add(new JobOpportunity(1, "android developer", "comapny", "jaddah", "junior android developer", "2 years of experience in java", "we are lookin for motivative developer"));
-            add(new JobOpportunity(1, "android developer", "comapny", "jaddah", "junior android developer", "2 years of experience in java", "we are lookin for motivative developer"));
-             }};
-        mAdapter = new JobsOpportunitiesAdapter(ctx, list);
-
-        mList.setAdapter(mAdapter);
+//        list = new ArrayList<JobOpportunity>(){{
+//            add(new JobOpportunity(1, "android developer", "comapny", "jaddah", "junior android developer", "2 years of experience in java", "we are lookin for motivative developer"));
+//            add(new JobOpportunity(1, "android developer", "comapny", "jaddah", "junior android developer", "2 years of experience in java", "we are lookin for motivative developer"));
+//            add(new JobOpportunity(1, "android developer", "comapny", "jaddah", "junior android developer", "2 years of experience in java", "we are lookin for motivative developer"));
+//            add(new JobOpportunity(1, "android developer", "comapny", "jaddah", "junior android developer", "2 years of experience in java", "we are lookin for motivative developer"));
+//             }};
+       get_jobs();
     }
     private void get_jobs(){
         String url = Urls.GET_JOBS;
+        list = new ArrayList<JobOpportunity>();
+        pDialog = new ProgressDialog(getContext());
+        pDialog.setMessage("Processing Please wait...");
+        pDialog.show();
+
+        AndroidNetworking.get(url)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject obj = response.getJSONObject(0);
+                                list.add(
+                                        new JobOpportunity(
+                                                Integer.parseInt(obj.getString("id")),
+                                                obj.getString("name"),
+                                                obj.getString("company"),
+                                                obj.getString("advertiser"),
+                                                obj.getString("location"),
+                                                obj.getString("position"),
+                                                obj.getString("required_skills"),
+                                                obj.getString("details"),
+                                                obj.getString("date")
+                                        )
+                                );
+                            }
+                            mAdapter = new JobsOpportunitiesAdapter(ctx, list);
+                            mList.setAdapter(mAdapter);
+                            pDialog.dismiss();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            pDialog.dismiss();
+                        }
+                    }
+                    @Override
+                    public void onError(ANError error) {
+                        pDialog.dismiss();
+                        Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
@@ -85,7 +125,9 @@ public class JobsOpportunitiesFragment extends Fragment implements OnButtonClick
         applyForJob(id);
     }
 
+
     private void applyForJob(String id) {
+        pDialog.show();
         String url = Urls.APPLY_JOB;
         AndroidNetworking.post(url)
                 .addBodyParameter("student_id", id)

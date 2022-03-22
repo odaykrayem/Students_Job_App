@@ -69,6 +69,19 @@ public class SharedPrefManager {
         editor.putInt(KEY_USER_TYPE, Constants.USER_TYPE_STUDENT);
         editor.apply();
     }
+    public void studentUpdate(String name, String userName, String phone, String sType, String sPlace, String sEnd,boolean isGoing) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_NAME, name);
+        editor.putString(KEY_USER_NAME, userName);
+        editor.putString(KEY_PHONE, phone);
+        editor.putString(KEY_STUDY_TYPE, sType);
+        editor.putString(KEY_STUDY_PLACE, sPlace);
+        editor.putString(KEY_STUDY_END, sEnd);
+        editor.putBoolean(KEY_STUDY_IS_GOING, isGoing);
+        editor.apply();
+    }
+
     //this method will store the student data in shared preferences
     public void advertiserLogin(Advertiser advertiser) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -83,6 +96,17 @@ public class SharedPrefManager {
         editor.putString(KEY_ADV_YEARS_OF_INC, advertiser.getYears_of_incorporation());
         editor.putInt(KEY_USER_TYPE, Constants.USER_TYPE_ADVERTISER);
 
+        editor.apply();
+    }
+    public void advertiserUpdate(String name, String phone , String website,  String location, String years_of_incor, String professional_fields) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_NAME,name );
+        editor.putString(KEY_PHONE, phone);
+        editor.putString(KEY_ADV_WEBSITE, website);
+        editor.putString(KEY_ADV_LOCATION,location );
+        editor.putString(KEY_ADV_FIELD, years_of_incor);
+        editor.putString(KEY_ADV_YEARS_OF_INC, professional_fields);
         editor.apply();
     }
 

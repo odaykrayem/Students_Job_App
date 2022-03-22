@@ -106,4 +106,7 @@ public interface apiRequests {
      */
     boolean change_request_status(int advertiser_id, int job_id, int status);
 
+    //TODO:  1. change get interests and get courses to post
+    //TODO : 2. add new request get student info
+    //TODO : 3. correct job request parameter ???????
 }

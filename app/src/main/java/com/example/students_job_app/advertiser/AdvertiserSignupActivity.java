@@ -82,7 +82,7 @@ public class AdvertiserSignupActivity extends AppCompatActivity {
     }
 
     private void signUp() {
-        String url = Urls.REGISTER_ADVERTISER;
+        String url = Urls.REGISTER;
         name = mNameET.getText().toString().trim();
         email= mEmailET.getText().toString().trim();
         password= mPasswordET.getText().toString().trim();
@@ -101,6 +101,7 @@ public class AdvertiserSignupActivity extends AppCompatActivity {
                 .addBodyParameter("professional_fields", profField)
                 .addBodyParameter("location", location)
                 .addBodyParameter("years_of_incorporation", yearsOfIncorporation)
+                .addBodyParameter("user_type", "1")
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -120,6 +121,8 @@ public class AdvertiserSignupActivity extends AppCompatActivity {
                                             response.getString("years_of_incorporation")
                                     )
                             );
+                            startActivity(new Intent(AdvertiserSignupActivity.this, AdvertiserMain.class));
+                            finish();
                             //converting response to json object
 //                            if(response.getInt("status") == 1){
 //                                JSONArray items = response.getJSONArray("list");
@@ -202,10 +205,7 @@ public class AdvertiserSignupActivity extends AppCompatActivity {
 
                         }
                         mSignUpBtn.setEnabled(true);
-
-
                     }
-
                     @Override
                     public void onError(ANError anError) {
                         pDialog.dismiss();

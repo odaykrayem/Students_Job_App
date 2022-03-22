@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +29,6 @@ public class JobsOpportunitiesAdapter extends RecyclerView.Adapter<JobsOpportuni
 
     OnButtonClickedListener onButtonClicked;
 
-    // RecyclerView recyclerView;
     public JobsOpportunitiesAdapter(Context context, ArrayList<JobOpportunity> list) {
         this.context = context;
         this.list = list;
@@ -44,7 +44,6 @@ public class JobsOpportunitiesAdapter extends RecyclerView.Adapter<JobsOpportuni
         return viewHolder;
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -55,8 +54,24 @@ public class JobsOpportunitiesAdapter extends RecyclerView.Adapter<JobsOpportuni
         holder.jobLocation.setText(item.getLocation());
 
         holder.apply.setOnClickListener(v->{
-            onButtonClicked.onButtonClicked(String.valueOf(item.getId()));
-//            applyForJob(String.valueOf(item.getId()));
+            LayoutInflater factory = LayoutInflater.from(context);
+            final View view1 = factory.inflate(R.layout.dialog_confirm_application, null);
+            final AlertDialog dialog = new AlertDialog.Builder(context).create();
+            dialog.setView(view1);
+            dialog.setCanceledOnTouchOutside(true);
+
+            TextView yes = view1.findViewById(R.id.yes_btn);
+            TextView no = view1.findViewById(R.id.no_btn);
+            yes.setOnClickListener(l->{
+                //Interface is in JobsOpportunities Fragment
+                onButtonClicked.onButtonClicked(String.valueOf(item.getId()));
+                dialog.dismiss();
+            });
+
+            no.setOnClickListener(l->{
+                dialog.dismiss();
+            });
+            dialog.show();
         });
         holder.itemView.setOnClickListener(v->{
             navController = Navigation.findNavController(holder.itemView);
@@ -64,22 +79,19 @@ public class JobsOpportunitiesAdapter extends RecyclerView.Adapter<JobsOpportuni
             bundle.putString("job_id", String.valueOf(item.getId()));
             bundle.putString("position", item.getPosition());
             bundle.putString("company", item.getCompany());
+            bundle.putString("company", item.getAdvertiser());
             bundle.putString("details", item.getDetails());
             bundle.putString("required_skills", item.getRequired_skills());
             bundle.putString("location", item.getLocation());
+            bundle.putString("date", item.getDate());
             navController.navigate(R.id.action_jobsFragment_to_jobDetailsFragment,bundle);
         });
-
     }
-
-
-
 
     @Override
     public int getItemCount() {
         return list.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -94,6 +106,4 @@ public class JobsOpportunitiesAdapter extends RecyclerView.Adapter<JobsOpportuni
             this.apply = itemView.findViewById(R.id.apply);
         }
     }
-
-
 }

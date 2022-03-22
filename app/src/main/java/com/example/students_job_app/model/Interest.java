@@ -4,12 +4,10 @@ public class Interest {
 
     private int id;
     private String tag;
-    private boolean selected;
 
-    public Interest(int id, String tag, boolean selected) {
+    public Interest(int id, String tag) {
         this.id = id;
         this.tag = tag;
-        this.selected = selected;
     }
 
     public int getId() {
@@ -28,11 +26,5 @@ public class Interest {
         this.tag = tag;
     }
 
-    public boolean isSelected() {
-        return selected;
-    }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
 }

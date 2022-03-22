@@ -36,11 +36,7 @@ public class AddInterestFragment extends Fragment {
     Button mAddInterestBtn;
     ProgressDialog pDialog;
 
-
-    public AddInterestFragment() {
-        // Required empty public constructor
-    }
-
+    public AddInterestFragment() {}
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -51,9 +47,7 @@ public class AddInterestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_interest, container, false);
-
     }
 
     @Override
@@ -70,9 +64,6 @@ public class AddInterestFragment extends Fragment {
                 addInterest();
             }
         });
-
-
-
     }
 
     private void addInterest() {
@@ -91,19 +82,18 @@ public class AddInterestFragment extends Fragment {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // do anything with response
                         try {
-                            int result = response.getInt("result");
-                            if(result == 1){
+
+                            if(response.equals("true")){
                                 Toast.makeText(ctx, ctx.getResources().getString(R.string.course_added), Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(ctx, ctx.getResources().getString(R.string.course_added_error), Toast.LENGTH_SHORT).show();
                             }
                             mAddInterestBtn.setEnabled(true);
                             pDialog.dismiss();
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
-                            Log.e("amn catch", e.getMessage() );
+                            Log.e("addInterest catch", e.getMessage() );
                             mAddInterestBtn.setEnabled(true);
                             pDialog.dismiss();
                         }
@@ -111,8 +101,9 @@ public class AddInterestFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         Toast.makeText(ctx, anError.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("main", anError.getMessage());
+                        Log.e("addInterestError", anError.getMessage());
                         pDialog.dismiss();
+                        mAddInterestBtn.setEnabled(true);
 
                     }
                 });

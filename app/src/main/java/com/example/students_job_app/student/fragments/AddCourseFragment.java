@@ -46,14 +46,11 @@ public class AddCourseFragment extends Fragment {
         this.ctx = context;
     }
 
-
-    public AddCourseFragment() {
-    }
+    public AddCourseFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -106,17 +103,16 @@ public class AddCourseFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         // do anything with response
                         try {
-                            int result = response.getInt("result");
-                            if(result == 1){
+                            if(response.equals("true")){
                                 Toast.makeText(ctx, ctx.getResources().getString(R.string.course_added), Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(ctx, ctx.getResources().getString(R.string.course_added_error), Toast.LENGTH_SHORT).show();
                             }
                             mAddCourseBtn.setEnabled(true);
                             pDialog.dismiss();
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
-                            Log.e("amn catch", e.getMessage() );
+                            Log.e("addCourse catch", e.getMessage() );
                             mAddCourseBtn.setEnabled(true);
                             pDialog.dismiss();
                         }
@@ -124,11 +120,10 @@ public class AddCourseFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         Toast.makeText(ctx, anError.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("main", anError.getMessage());
+                        Log.e("addCourseError", anError.getMessage());
+                        mAddCourseBtn.setEnabled(true);
                         pDialog.dismiss();
-
                     }
                 });
-
     }
 }

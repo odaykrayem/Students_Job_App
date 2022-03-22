@@ -31,6 +31,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.example.students_job_app.LoginActivity;
 import com.example.students_job_app.R;
+import com.example.students_job_app.advertiser.AdvertiserMain;
 import com.example.students_job_app.advertiser.AdvertiserSignupActivity;
 import com.example.students_job_app.model.Student;
 import com.example.students_job_app.utils.Constants;
@@ -56,7 +57,7 @@ public class StudentSignupActivity extends AppCompatActivity {
     int gender = -1;
 
     ProgressDialog pDialog;
-    boolean onGoing , cvSelected;
+    boolean onGoing , cvUploaded;
 
     CheckBox mOnGoingCB;
     Button mUploadCVBtn, mSignUpBtn, mToLoginBtn, mToRegisterAdvertiserBtn;
@@ -101,6 +102,8 @@ public class StudentSignupActivity extends AppCompatActivity {
         mStudyEndDateET.setHint("- - - - - -");
         onGoing = true;
 
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Processing Please wait...");
         gender = Constants.MALE;
         genderRG.check(R.id.male);
 
@@ -175,7 +178,7 @@ public class StudentSignupActivity extends AppCompatActivity {
         mSignUpBtn.setOnClickListener(v->{
             if(Validation.validateInput(this, mUserNameET, mNameET, mNickNameET, mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
                    , mStudyEndDateET, mBirthDateET, mStudyStartDateET)){
-                if(cvSelected){
+                if(cvUploaded){
                     verifyEmail();
                 }else{
                     Toast.makeText(this, getResources().getString(R.string.please_upload_cv), Toast.LENGTH_SHORT).show();
@@ -237,11 +240,10 @@ public class StudentSignupActivity extends AppCompatActivity {
         }
     }
     private void uploadCV(String filePath) {
-        final ProgressDialog pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Processing Please wait...");
-        pDialog.show();
+
 
         File file = new File(filePath);
+        pDialog.show();
 
         mSignUpBtn.setEnabled(false);
         AndroidNetworking.upload(Urls.UPLOAD_CV)
@@ -265,95 +267,31 @@ public class StudentSignupActivity extends AppCompatActivity {
 
                             //if no error in response
                             if (!obj.getBoolean("error")) {
-                                cvSelected = true;
+                                cvUploaded = true;
                                 mUploadCVBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_input_selected));
                             } else {
                                 Toast.makeText(StudentSignupActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             }
                             mSignUpBtn.setEnabled(true);
-                            pDialog.hide();
+                            pDialog.dismiss();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                             mSignUpBtn.setEnabled(true);
-                            pDialog.hide();
+                            pDialog.dismiss();
                         }
                     }
                     @Override
                     public void onError(ANError error) {
                         // handle error
                         Log.e("Error", error.getMessage());
-                        pDialog.hide();
+                        pDialog.dismiss();
                         mSignUpBtn.setEnabled(true);
 
                     }
                 });
     }
 
-    private void signUp() {
-
-        String url = Urls.REGISTER_STUDENT;
-        userName = mUserNameET.getText().toString().trim();
-        name = mNameET.getText().toString().trim();
-        nickName = mNickNameET.getText().toString().trim() + " " + mNickNameET.getText().toString().trim();
-        phone = mPhoneET.getText().toString().trim();
-        email = mEmailET.getText().toString().trim();
-        password = mPasswordET.getText().toString().trim();
-        birthDate = mBirthDateET.getText().toString().trim();
-        placeOfStudy = mPlaceOfStudyET.getText().toString().trim();
-        typeOfStudy = mTypeOfStudyET.getText().toString().trim();
-        studyStartDate = mStudyStartDateET.getText().toString().trim();
-        studyEndDate = mStudyEndDateET.getText().toString().trim();
-//        onGoing
-        AndroidNetworking.post(url)
-                .addBodyParameter("user_name", userName)
-                .addBodyParameter("name", name)
-                .addBodyParameter("nick_name", nickName)
-                .addBodyParameter("email", email)
-                .addBodyParameter("phone", phone)
-                .addBodyParameter("password", password)
-                .addBodyParameter("gender", String.valueOf(gender))
-                .addBodyParameter("birth_date", birthDate)
-                .addBodyParameter("study_type", typeOfStudy)
-                .addBodyParameter("study_place", placeOfStudy)
-                .addBodyParameter("study_start", studyStartDate)
-                .addBodyParameter("study_end_date", studyEndDate)
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // do anything with response
-                        try {
-                            SharedPrefManager.getInstance(StudentSignupActivity.this).studentLogin(
-                                    new Student(
-                                            Integer.parseInt(response.getString("id")),
-                                            response.getString("user_name"),
-                                            response.getString("name") + response.getString("nick_name"),
-                                            response.getString("phone"),
-                                            response.getString("email"),
-                                            response.getString("birth_date"),
-                                            Integer.parseInt(response.getString("gender")),
-                                            response.getString("study_type"),
-                                            response.getString("study_place"),
-                                            response.getString("study_start"),
-                                            response.getString("study_end_date"),
-                                            response.getBoolean("is_going"),
-                                            response.getString("cv")
-                                    )
-                            );
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.e("amn catch", e.getMessage() );
-                        }
-                    }
-                    @Override
-                    public void onError(ANError anError) {
-                        Toast.makeText(StudentSignupActivity.this, anError.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("main", anError.getMessage());
-                    }
-                });
-    }
 
     private void verifyEmail() {
         LayoutInflater factory = LayoutInflater.from(this);
@@ -401,6 +339,7 @@ public class StudentSignupActivity extends AppCompatActivity {
                             }
                             Validation.setEnabled(StudentSignupActivity.this, true, mNameET, mEmailET,mPasswordET, mPhoneET,  mUserNameET, mNameET, mNickNameET, mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
                    , mStudyEndDateET, mBirthDateET, mStudyStartDateET);
+                            mSignUpBtn.setEnabled(true);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -420,4 +359,73 @@ public class StudentSignupActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void signUp() {
+
+        String url = Urls.REGISTER;
+        userName = mUserNameET.getText().toString().trim();
+        name = mNameET.getText().toString().trim();
+        nickName = mNickNameET.getText().toString().trim() + " " + mNickNameET.getText().toString().trim();
+        phone = mPhoneET.getText().toString().trim();
+        email = mEmailET.getText().toString().trim();
+        password = mPasswordET.getText().toString().trim();
+        birthDate = mBirthDateET.getText().toString().trim();
+        placeOfStudy = mPlaceOfStudyET.getText().toString().trim();
+        typeOfStudy = mTypeOfStudyET.getText().toString().trim();
+        studyStartDate = mStudyStartDateET.getText().toString().trim();
+        studyEndDate = mStudyEndDateET.getText().toString().trim();
+//        onGoing
+        AndroidNetworking.post(url)
+                .addBodyParameter("user_name", userName)
+                .addBodyParameter("name", name)
+                .addBodyParameter("nick_name", nickName)
+                .addBodyParameter("email", email)
+                .addBodyParameter("phone", phone)
+                .addBodyParameter("password", password)
+                .addBodyParameter("gender", String.valueOf(gender))
+                .addBodyParameter("birth_date", birthDate)
+                .addBodyParameter("study_type", typeOfStudy)
+                .addBodyParameter("study_place", placeOfStudy)
+                .addBodyParameter("study_start", studyStartDate)
+                .addBodyParameter("study_end_date", studyEndDate)
+                .addBodyParameter("user_type", "0")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // do anything with response
+                        try {
+                            SharedPrefManager.getInstance(StudentSignupActivity.this).studentLogin(
+                                    new Student(
+                                            Integer.parseInt(response.getString("id")),
+                                            response.getString("user_name"),
+                                            response.getString("name") + response.getString("nick_name"),
+                                            response.getString("phone"),
+                                            response.getString("email"),
+                                            response.getString("birth_date"),
+                                            Integer.parseInt(response.getString("gender")),
+                                            response.getString("study_type"),
+                                            response.getString("study_place"),
+                                            response.getString("study_start"),
+                                            response.getString("study_end_date"),
+                                            response.getBoolean("is_going"),
+                                            response.getString("cv")
+                                    )
+                            );
+                            startActivity(new Intent(StudentSignupActivity.this, StudentMain.class));
+                            finish();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("amn catch", e.getMessage() );
+                        }
+                    }
+                    @Override
+                    public void onError(ANError anError) {
+                        Toast.makeText(StudentSignupActivity.this, anError.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("main", anError.getMessage());
+                    }
+                });
+    }
+
 }

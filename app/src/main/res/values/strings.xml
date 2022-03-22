@@ -95,4 +95,9 @@
     <string name="verification_error">Code is invalid please enter the correct one</string>
     <string name="course_added">Course added successfully</string>
     <string name="course_added_error">Error adding course</string>
+    <string name="posted_jobs_list">Posted Jobs List</string>
+    <string name="are_you_sure_you_accept">Are you sre you want to accept this application ?</string>
+    <string name="are_you_sure_you_reject">Are you sre you want to reject this application ?</string>
+    <string name="student_details">Student Details</string>
+    <string name="hint_gender">Gender</string>
 </resources>
