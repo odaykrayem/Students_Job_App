@@ -11,8 +11,17 @@
         android:label="@string/posted_jobs_list"
         tools:layout="@layout/fragment_my_posted_jobs"
         >
-
+        <action
+            android:id="@+id/action_jobs_To_AddJobFragment"
+            app:destination="@id/AddJobFragment"
+            app:popUpTo="@id/menu_posted_jobs" />
     </fragment>
+    <fragment
+        android:id="@+id/AddJobFragment"
+        android:name="com.example.students_job_app.advertiser.fragments.AddJobFragment"
+        android:label="@string/add_new_job"
+        tools:layout="@layout/fragment_add_job"
+        />
     <fragment
         android:id="@+id/menu_job_requests"
         android:name="com.example.students_job_app.advertiser.fragments.JobRequestsFragment"
@@ -29,6 +38,17 @@
         android:name="com.example.students_job_app.advertiser.fragments.StudentDetailsFragment"
         android:label="@string/student_details"
         tools:layout="@layout/fragment_student_details"
+        >
+        <action
+            android:id="@+id/action_Student_to_ViewCVFragment"
+            app:destination="@id/StudentCVView"
+            app:popUpTo="@id/StudentDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/StudentCVView"
+        android:name="com.example.students_job_app.student.fragments.CVViewFragment"
+        android:label="@string/student_cv"
+        tools:layout="@layout/fragment_cv_view"
         />
     <fragment
         android:id="@+id/menu_advertiser_profile"

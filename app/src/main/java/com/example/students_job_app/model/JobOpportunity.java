@@ -3,26 +3,26 @@ package com.example.students_job_app.model;
 public class JobOpportunity {
 
     private int id;
-    private String name;
+    private String title;
     private String company;
-    private String advertiser;
-    private String location;
+    private String advertiserName;
+    private String jobLocation;
     private String position;
     private String required_skills;
-     private String details;
-     private String date;
+    private String details;
+    private String created_at;
 
 
-    public JobOpportunity(int id, String name, String company, String advertiser, String location, String position, String required_skills, String details, String date) {
+    public JobOpportunity(int id, String title, String company, String advertiserName, String jobLocation, String position, String required_skills, String details, String created_at) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.company = company;
-        this.advertiser = advertiser;
-        this.location = location;
+        this.advertiserName = advertiserName;
+        this.jobLocation = jobLocation;
         this.position = position;
         this.required_skills = required_skills;
         this.details = details;
-        this.date = date;
+        this.created_at = created_at;
     }
 
     public int getId() {
@@ -37,28 +37,28 @@ public class JobOpportunity {
         return required_skills;
     }
 
-    public String getAdvertiser() {
-        return advertiser;
+    public String getAdvertiserName() {
+        return advertiserName;
     }
 
-    public String getDate() {
-        return date;
+    public String getCreated_at() {
+        return created_at;
     }
 
     public String getDetails() {
         return details;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public String getCompany() {
         return company;
     }
 
-    public String getLocation() {
-        return location;
+    public String getJobLocation() {
+        return jobLocation;
     }
 
 }

@@ -28,10 +28,8 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.UploadProgressListener;
-import com.example.students_job_app.LoginActivity;
+import com.example.students_job_app.activities.LoginActivity;
 import com.example.students_job_app.R;
-import com.example.students_job_app.advertiser.AdvertiserMain;
 import com.example.students_job_app.advertiser.AdvertiserSignupActivity;
 import com.example.students_job_app.model.Student;
 import com.example.students_job_app.utils.Constants;
@@ -51,21 +49,23 @@ public class StudentSignupActivity extends AppCompatActivity {
     private static final int PICK_PDF_REQUEST = 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 2;
 
-    EditText mUserNameET, mNameET, mNickNameET, mPhoneET, mEmailET,mPasswordET, mPlaceOfStudyET, mTypeOfStudyET;
+    EditText mUserNameET, mNameET, mPhoneET, mEmailET,mPasswordET, mPlaceOfStudyET, mTypeOfStudyET;
     EditText mBirthDateET, mStudyStartDateET, mStudyEndDateET;
-    String userName, name , nickName, phone, email,password,placeOfStudy, typeOfStudy,birthDate, studyStartDate, studyEndDate ;
+    String userName, name , phone, email,password,placeOfStudy, typeOfStudy,birthDate, studyStartDate, studyEndDate ;
     int gender = -1;
 
     ProgressDialog pDialog;
-    boolean onGoing , cvUploaded;
+    boolean onGoing , cvSelected = false;
 
     CheckBox mOnGoingCB;
     Button mUploadCVBtn, mSignUpBtn, mToLoginBtn, mToRegisterAdvertiserBtn;
     RadioGroup genderRG;
 
     Uri pdfUri;
-
     final Calendar myCalendar = Calendar.getInstance();
+    String filePath;
+    AlertDialog verificationDialog;
+    String verificationCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,6 @@ public class StudentSignupActivity extends AppCompatActivity {
 
         mUserNameET = findViewById(R.id.user_name);
         mNameET = findViewById(R.id.name);
-        mNickNameET = findViewById(R.id.nick_name);
         mPhoneET = findViewById(R.id.phone);
         mEmailET = findViewById(R.id.email);
         mPasswordET = findViewById(R.id.password);
@@ -101,6 +100,7 @@ public class StudentSignupActivity extends AppCompatActivity {
         mStudyEndDateET.setText("");
         mStudyEndDateET.setHint("- - - - - -");
         onGoing = true;
+        mOnGoingCB.setChecked(true);
 
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Processing Please wait...");
@@ -120,7 +120,19 @@ public class StudentSignupActivity extends AppCompatActivity {
         mBirthDateET.setOnClickListener(v -> {
             final DatePickerDialog  picker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    mBirthDateET.setText(""+year+"/"+monthOfYear+"/"+dayOfMonth);
+                    String month = "";
+                    if(String.valueOf(monthOfYear).length()<2){
+                        month = "0" + monthOfYear;
+                    }else{
+                        month = "" + monthOfYear;
+                    }
+                    String day = "";
+                    if(String.valueOf(dayOfMonth).length()<2){
+                        day = "0"+ dayOfMonth;
+                    }else{
+                        day = ""+dayOfMonth;
+                    }
+                    mBirthDateET.setText(""+year+"-"+month+"-"+day);
                 }
 
             }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -130,7 +142,19 @@ public class StudentSignupActivity extends AppCompatActivity {
         mStudyStartDateET.setOnClickListener(v -> {
             final DatePickerDialog  picker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    mStudyStartDateET.setText(""+year+"/"+monthOfYear+"/"+dayOfMonth);
+                    String month = "";
+                    if(String.valueOf(monthOfYear).length()<2){
+                        month = "0" + monthOfYear;
+                    }else{
+                        month = "" + monthOfYear;
+                    }
+                    String day = "";
+                    if(String.valueOf(dayOfMonth).length()<2){
+                        day = "0"+ dayOfMonth;
+                    }else{
+                        day = ""+dayOfMonth;
+                    }
+                    mStudyStartDateET.setText(""+year+"-"+month+"-"+day);
                 }
 
             }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -140,27 +164,36 @@ public class StudentSignupActivity extends AppCompatActivity {
         mStudyEndDateET.setOnClickListener(v -> {
             final DatePickerDialog  picker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    mStudyEndDateET.setText(""+year+"/"+monthOfYear+"/"+dayOfMonth);
+                    String month = "";
+                    if(String.valueOf(monthOfYear).length()<2){
+                        month = "0" + monthOfYear;
+                    }else{
+                        month = "" + monthOfYear;
+                    }
+                    String day = "";
+                    if(String.valueOf(dayOfMonth).length()<2){
+                        day = "0"+ dayOfMonth;
+                    }else{
+                        day = ""+dayOfMonth;
+                    }
+                    mStudyEndDateET.setText(""+year+"-"+month+"-"+day);
                 }
 
             }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
             picker.show();
         });
 
-        mOnGoingCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
-                    mStudyEndDateET.setEnabled(false);
-                    mStudyEndDateET.setText("");
-                    mStudyEndDateET.setHint("- - - - - -");
-                    onGoing = true;
+        mOnGoingCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked)
+            {
+                mStudyEndDateET.setEnabled(false);
+                mStudyEndDateET.setText("");
+                mStudyEndDateET.setHint("- - - - - -");
+                onGoing = true;
 
-                }else{
-                    mStudyEndDateET.setEnabled(true);
-                    onGoing = false;
-                }
+            }else{
+                mStudyEndDateET.setEnabled(true);
+                onGoing = false;
             }
         });
 
@@ -176,20 +209,28 @@ public class StudentSignupActivity extends AppCompatActivity {
         });
 
         mSignUpBtn.setOnClickListener(v->{
-            if(Validation.validateInput(this, mUserNameET, mNameET, mNickNameET, mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
-                   , mStudyEndDateET, mBirthDateET, mStudyStartDateET)){
-                if(cvUploaded){
-                    verifyEmail();
+            if(Validation.validateInput(this, mUserNameET, mNameET,  mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
+                   , mBirthDateET, mStudyStartDateET)){
+                if(onGoing){
+                    if(cvSelected){
+//                    verifyEmail();
+                        signUp();
+                    }else{
+                        Toast.makeText(this, getResources().getString(R.string.please_upload_cv), Toast.LENGTH_SHORT).show();
+                    }
                 }else{
-                    Toast.makeText(this, getResources().getString(R.string.please_upload_cv), Toast.LENGTH_SHORT).show();
+                    if(mStudyEndDateET.getText().toString().isEmpty()){
+                        Toast.makeText(this, getResources().getString(R.string.missing_fields_message), Toast.LENGTH_SHORT).show();
+                    }else{
+                        signUp();
+                    }
                 }
+
             }
 
         });
         mUploadCVBtn.setOnClickListener(v->{
             requestRead();
-//            uploadCV();
-
         });
     }
 
@@ -227,69 +268,17 @@ public class StudentSignupActivity extends AppCompatActivity {
             Uri picUri = pdfUri;
             Log.d("filePath", String.valueOf(picUri));
 
-            String filePath = FilePath.getPath(this,picUri);
+            filePath = FilePath.getPath(this,picUri);
             if (filePath != null) {
                 Log.d("filePath", filePath);
                 Toast.makeText(this, "started searching", Toast.LENGTH_SHORT).show();
-                uploadCV(filePath);
+                cvSelected = true;
             }
             else
             {
                 Toast.makeText(this,"no image selected", Toast.LENGTH_LONG).show();
             }
         }
-    }
-    private void uploadCV(String filePath) {
-
-
-        File file = new File(filePath);
-        pDialog.show();
-
-        mSignUpBtn.setEnabled(false);
-        AndroidNetworking.upload(Urls.UPLOAD_CV)
-                .addMultipartFile("pdf", file)
-                .setPriority(Priority.HIGH)
-                .build()
-                .setUploadProgressListener(new UploadProgressListener() {
-                    @Override
-                    public void onProgress(long bytesUploaded, long totalBytes) {
-                        // do anything with progress
-                    }
-                })
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // do anything with response
-                        pDialog.dismiss();
-                        try {
-                            //converting response to json object
-                            JSONObject obj = response;
-
-                            //if no error in response
-                            if (!obj.getBoolean("error")) {
-                                cvUploaded = true;
-                                mUploadCVBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_input_selected));
-                            } else {
-                                Toast.makeText(StudentSignupActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            }
-                            mSignUpBtn.setEnabled(true);
-                            pDialog.dismiss();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            mSignUpBtn.setEnabled(true);
-                            pDialog.dismiss();
-                        }
-                    }
-                    @Override
-                    public void onError(ANError error) {
-                        // handle error
-                        Log.e("Error", error.getMessage());
-                        pDialog.dismiss();
-                        mSignUpBtn.setEnabled(true);
-
-                    }
-                });
     }
 
 
@@ -316,7 +305,7 @@ public class StudentSignupActivity extends AppCompatActivity {
         String email = mEmailET.getText().toString().trim();
         mSignUpBtn.setEnabled(false);
         pDialog.show();
-        Validation.setEnabled(this, false, mNameET, mEmailET,mPasswordET, mPhoneET,  mUserNameET, mNameET, mNickNameET, mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
+        Validation.setEnabled(this, false, mNameET, mEmailET,mPasswordET, mPhoneET,  mUserNameET, mNameET, mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
                 , mStudyEndDateET, mBirthDateET, mStudyStartDateET );
         AndroidNetworking.post(url)
                 .addBodyParameter("email", email)
@@ -332,18 +321,18 @@ public class StudentSignupActivity extends AppCompatActivity {
                         try {
                             JSONObject obj = response;
                             if(response.getInt("verified") == 1){
-                                signUp();
+
                             }else{
                                 Toast.makeText(StudentSignupActivity.this, getResources().getString(R.string.verification_error), Toast.LENGTH_SHORT).show();
 
                             }
-                            Validation.setEnabled(StudentSignupActivity.this, true, mNameET, mEmailET,mPasswordET, mPhoneET,  mUserNameET, mNameET, mNickNameET, mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
+                            Validation.setEnabled(StudentSignupActivity.this, true, mNameET, mEmailET,mPasswordET, mPhoneET,  mUserNameET, mNameET, mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
                    , mStudyEndDateET, mBirthDateET, mStudyStartDateET);
                             mSignUpBtn.setEnabled(true);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Validation.setEnabled(StudentSignupActivity.this, true, mNameET, mEmailET,mPasswordET, mPhoneET, mUserNameET, mNameET, mNickNameET, mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
+                            Validation.setEnabled(StudentSignupActivity.this, true, mNameET, mEmailET,mPasswordET, mPhoneET, mUserNameET, mNameET, mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
                    , mStudyEndDateET, mBirthDateET, mStudyStartDateET);
 
                         }
@@ -353,7 +342,7 @@ public class StudentSignupActivity extends AppCompatActivity {
                     public void onError(ANError anError) {
                         pDialog.dismiss();
                         mSignUpBtn.setEnabled(true);
-                        Validation.setEnabled(StudentSignupActivity.this, true,  mUserNameET, mNameET, mNickNameET, mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
+                        Validation.setEnabled(StudentSignupActivity.this, true,  mUserNameET, mNameET, mPhoneET, mEmailET, mPlaceOfStudyET, mTypeOfStudyET
                                 , mStudyEndDateET, mBirthDateET, mStudyStartDateET);
                         Toast.makeText(StudentSignupActivity.this, anError.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -361,11 +350,11 @@ public class StudentSignupActivity extends AppCompatActivity {
     }
 
     private void signUp() {
-
-        String url = Urls.REGISTER;
+        String url = Urls.REGISTER_STUDENT;
+        mSignUpBtn.setEnabled(false);
+        pDialog.show();
         userName = mUserNameET.getText().toString().trim();
         name = mNameET.getText().toString().trim();
-        nickName = mNickNameET.getText().toString().trim() + " " + mNickNameET.getText().toString().trim();
         phone = mPhoneET.getText().toString().trim();
         email = mEmailET.getText().toString().trim();
         password = mPasswordET.getText().toString().trim();
@@ -374,58 +363,144 @@ public class StudentSignupActivity extends AppCompatActivity {
         typeOfStudy = mTypeOfStudyET.getText().toString().trim();
         studyStartDate = mStudyStartDateET.getText().toString().trim();
         studyEndDate = mStudyEndDateET.getText().toString().trim();
-//        onGoing
-        AndroidNetworking.post(url)
-                .addBodyParameter("user_name", userName)
-                .addBodyParameter("name", name)
-                .addBodyParameter("nick_name", nickName)
-                .addBodyParameter("email", email)
-                .addBodyParameter("phone", phone)
-                .addBodyParameter("password", password)
-                .addBodyParameter("gender", String.valueOf(gender))
-                .addBodyParameter("birth_date", birthDate)
-                .addBodyParameter("study_type", typeOfStudy)
-                .addBodyParameter("study_place", placeOfStudy)
-                .addBodyParameter("study_start", studyStartDate)
-                .addBodyParameter("study_end_date", studyEndDate)
-                .addBodyParameter("user_type", "0")
+
+        AndroidNetworking.upload(url)
+                .addMultipartFile("cv", new File(filePath))
+                .addMultipartParameter("user_name", userName)
+                .addMultipartParameter("name", "name")
+                .addMultipartParameter("nick_name", name)
+                .addMultipartParameter("email", email)
+                .addMultipartParameter("phone", phone)
+                .addMultipartParameter("password", password)
+                .addMultipartParameter("gender", String.valueOf(gender))
+                .addMultipartParameter("birth_date", birthDate)
+                .addMultipartParameter("study_type", typeOfStudy)
+                .addMultipartParameter("study_place", placeOfStudy)
+                .addMultipartParameter("start_study", studyStartDate)
+                .addMultipartParameter("end_study", studyEndDate)
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // do anything with response
                         try {
-                            SharedPrefManager.getInstance(StudentSignupActivity.this).studentLogin(
+                            //converting response to json object
+                            JSONObject obj = response;
+                            String message = obj.getString("message");
+                            String userFounded = "User Saved";
+                            JSONObject object = obj.getJSONObject("data");
+
+                            if (message.toLowerCase().contains(userFounded.toLowerCase())) {
+                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                                SharedPrefManager.getInstance(StudentSignupActivity.this).studentLogin(
                                     new Student(
-                                            Integer.parseInt(response.getString("id")),
-                                            response.getString("user_name"),
-                                            response.getString("name") + response.getString("nick_name"),
-                                            response.getString("phone"),
-                                            response.getString("email"),
-                                            response.getString("birth_date"),
-                                            Integer.parseInt(response.getString("gender")),
-                                            response.getString("study_type"),
-                                            response.getString("study_place"),
-                                            response.getString("study_start"),
-                                            response.getString("study_end_date"),
-                                            response.getBoolean("is_going"),
-                                            response.getString("cv")
+                                            Integer.parseInt(object.getString("id")),
+                                            object.getString("user_name"),
+                                            object.getString("nick_name"),
+                                            object.getString("phone"),
+                                            object.getString("email"),
+                                            object.getString("birth_date").substring(0,10),
+                                            Integer.parseInt(object.getString("gender")),
+                                            object.getString("study_type"),
+                                            object.getString("study_place"),
+                                            object.getString("study_start_date").substring(0,10),
+                                            object.getString("study_end_date").substring(0,10),
+                                            object.getString("study_end_date").isEmpty()|| object.getString("study_end_date").equals("null"),
+                                            object.getString("cv_url")
                                     )
                             );
-                            startActivity(new Intent(StudentSignupActivity.this, StudentMain.class));
-                            finish();
+                                verificationCode = object.getString("status");
+                                Log.e("code", verificationCode);
+                                SharedPrefManager.getInstance(getApplicationContext()).setVerified(false);
+                                SharedPrefManager.getInstance(getApplicationContext()).setVerificationCode(verificationCode);
+                                verifyEmail(verificationCode);
+                            }
+                            pDialog.dismiss();
+                            mSignUpBtn.setEnabled(true);
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.e("amn catch", e.getMessage() );
+                            Log.e("register st catch", e.getMessage());
+                            pDialog.dismiss();
+                            mSignUpBtn.setEnabled(true);
                         }
                     }
                     @Override
                     public void onError(ANError anError) {
-                        Toast.makeText(StudentSignupActivity.this, anError.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("main", anError.getMessage());
+                        pDialog.dismiss();
+                        mSignUpBtn.setEnabled(true);
+                        Log.e("registersterror", anError.getErrorBody());
+                        try {
+                            JSONObject error = new JSONObject(anError.getErrorBody());
+                            JSONObject data = error.getJSONObject("data");
+                            Toast.makeText(StudentSignupActivity.this, error.getString("message"), Toast.LENGTH_SHORT).show();
+                            if (data.has("image_url")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("image_url").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("email")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("email").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("password")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("password").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("user_name")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("user_name").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("name")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("name").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("nick_name")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("nick_name").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("phone")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("phone").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("gender")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("gender").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("birth_date")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("birth_date").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("study_type")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("study_type").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("study_place")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("study_place").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("start_study")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("study_start").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("end_study")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("end_study").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
+    private void verifyEmail(String verificationCode) {
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View view = factory.inflate(R.layout.dialog_verify_email, null);
+        verificationDialog = new AlertDialog.Builder(this).create();
+        verificationDialog.setView(view);
+        verificationDialog.setCanceledOnTouchOutside(true);
+        verificationDialog.setCancelable(false);
 
+
+        EditText code = view.findViewById(R.id.code);
+        Button verify = view.findViewById(R.id.btn_verify_code);
+        verify.setOnClickListener(v -> {
+            if (!code.getText().toString().trim().isEmpty()) {
+                String codeFromUser = code.getText().toString().trim();
+                if(codeFromUser.equals(verificationCode)){
+                    Toast.makeText(this, getResources().getString(R.string.correct_code), Toast.LENGTH_SHORT).show();
+                    SharedPrefManager.getInstance(getApplicationContext()).setVerified(true);
+                    startActivity(new Intent(StudentSignupActivity.this, StudentMain.class));
+                    finish();                }else{
+                    Toast.makeText(this, getResources().getString(R.string.error_code), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        verificationDialog.show();
+    }
 }

@@ -1,22 +1,16 @@
 package com.example.students_job_app.student.adapters;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.students_job_app.R;
 import com.example.students_job_app.model.Course;
-import com.example.students_job_app.model.JobOpportunity;
-import com.example.students_job_app.student.OnButtonClickedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +40,7 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHold
 
         Course item = list.get(position);
 
-        holder.courseName.setText(item.getName());
+        holder.courseName.setText(item.getCourseName());
         holder.institution.setText(item.getInstitution());
         holder.startDate.setText(item.getStartDate());
         holder.endDate.setText(item.getEndDate());

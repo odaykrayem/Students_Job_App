@@ -1,8 +1,11 @@
 package com.example.students_job_app.model;
 
+import com.example.students_job_app.utils.Urls;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Student {
+public class Student implements Serializable {
     private int id;
     private String userName;
     private String name;
@@ -10,16 +13,17 @@ public class Student {
     private String email;
     private String birthDate;
     private int gender;
-    private String typeOfStudy;
-    private String placeOfStudy;
-    private String startOfStudy;
-    private String endOfStudy;
+    private String studyType;
+    private String studyPlace;
+    private String studyStartDate;
+    private String studyEndDate;
     private boolean studyIsGoing;
     private String cv;
+
     private ArrayList<String> interests;
     private ArrayList<Course> courses;
 
-    public Student(int id, String userName, String name, String phone, String email, String birthDate, int gender, String typeOfStudy, String placeOfStudy, String startOfStudy, String endOfStudy, boolean studyIsGoing, String cv) {
+    public Student(int id, String userName, String name, String phone, String email, String birthDate, int gender, String studyType, String studyPlace, String studyStartDate, String studyEndDate, boolean studyIsGoing, String cv) {
         this.id = id;
         this.userName = userName;
         this.name = name;
@@ -27,14 +31,13 @@ public class Student {
         this.email = email;
         this.birthDate = birthDate;
         this.gender = gender;
-        this.typeOfStudy = typeOfStudy;
-        this.placeOfStudy = placeOfStudy;
-        this.startOfStudy = startOfStudy;
-        this.endOfStudy = endOfStudy;
+        this.studyType = studyType;
+        this.studyPlace = studyPlace;
+        this.studyStartDate = studyStartDate;
+        this.studyEndDate = studyEndDate;
         this.studyIsGoing = studyIsGoing;
-        this.cv = cv;
+        this.cv = Urls.BASE_URL_FILE +  cv;
     }
-
 
     public int getId() {
         return id;
@@ -64,20 +67,20 @@ public class Student {
         return gender;
     }
 
-    public String getTypeOfStudy() {
-        return typeOfStudy;
+    public String getStudyType() {
+        return studyType;
     }
 
-    public String getPlaceOfStudy() {
-        return placeOfStudy;
+    public String getStudyPlace() {
+        return studyPlace;
     }
 
-    public String getStartOfStudy() {
-        return startOfStudy;
+    public String getStudyStartDate() {
+        return studyStartDate;
     }
 
-    public String getEndOfStudy() {
-        return endOfStudy;
+    public String getStudyEndDate() {
+        return studyEndDate;
     }
 
     public boolean isStudyIsGoing() {

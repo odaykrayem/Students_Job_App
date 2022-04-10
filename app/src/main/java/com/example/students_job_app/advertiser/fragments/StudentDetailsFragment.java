@@ -2,13 +2,14 @@ package com.example.students_job_app.advertiser.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -30,12 +31,9 @@ import com.example.students_job_app.advertiser.adapters.JobRequestsAdapter;
 import com.example.students_job_app.model.Course;
 import com.example.students_job_app.model.Interest;
 import com.example.students_job_app.model.Student;
-import com.example.students_job_app.student.StudentMain;
-import com.example.students_job_app.student.StudentSignupActivity;
 import com.example.students_job_app.student.adapters.CoursesAdapter;
 import com.example.students_job_app.student.adapters.InterestsAdapter;
 import com.example.students_job_app.utils.Constants;
-import com.example.students_job_app.utils.SharedPrefManager;
 import com.example.students_job_app.utils.Urls;
 
 import org.json.JSONArray;
@@ -53,28 +51,29 @@ public class StudentDetailsFragment extends Fragment {
     ArrayList<Course> courseList;
     ArrayList<Interest> interestList;
 
-    String id;
     Student student;
+    int jobId;
 
     JobRequestsAdapter.OnRequestButtonClicked onRequestButtonClicked;
 
     Context context;
+    ProgressDialog pDialog;
+    NavController navController;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
     }
 
-    public StudentDetailsFragment() {
-        // Required empty public constructor
-    }
-
+    public StudentDetailsFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments() != null){
-            id = getArguments().getString(Constants.KEY_STUDENT_ID);
+            student = (Student) getArguments().getSerializable(Constants.KEY_STUDENT);
+            jobId = getArguments().getInt(Constants.KEY_JOB_ID);
         }
     }
 
@@ -93,6 +92,7 @@ public class StudentDetailsFragment extends Fragment {
         mPhoneTV = view.findViewById(R.id.phone);
         mEmailTV = view.findViewById(R.id.email);
         mBirthDateTV = view.findViewById(R.id.birth);
+        mGender = view.findViewById(R.id.gender);
         mPlaceOfStudyTV = view.findViewById(R.id.place_of_study);
         mTypeOfStudyTV = view.findViewById(R.id.type_of_study);
         mStartOfStudyTV = view.findViewById(R.id.start_of_study);
@@ -101,183 +101,133 @@ public class StudentDetailsFragment extends Fragment {
         mCoursesRV = view.findViewById(R.id.rv_courses);
         mInterestsRV = view.findViewById(R.id.rv_interests);
         mShowCVBtn = view.findViewById(R.id.show_cv);
-        mAccept = view.findViewById(R.id.accept);
-        mReject = view.findViewById(R.id.reject);
 
-        mAccept.setOnClickListener(v->{
-            LayoutInflater factory = LayoutInflater.from(context);
-            final View view1 = factory.inflate(R.layout.dialog_accept_reuqest, null);
-            final AlertDialog dialog = new AlertDialog.Builder(context).create();
-            dialog.setView(view1);
-            dialog.setCanceledOnTouchOutside(true);
+        navController = Navigation.findNavController(view);
+        pDialog = new ProgressDialog(context);
+        pDialog.setCancelable(false);
+        pDialog.setMessage("Processing please wait ...");
 
-            TextView yes = view1.findViewById(R.id.yes_btn);
-            TextView no = view1.findViewById(R.id.no_btn);
-            yes.setOnClickListener(l->{
-                onRequestButtonClicked.onAcceptSelected(id);
-                dialog.dismiss();
-            });
-
-            no.setOnClickListener(l->{
-                dialog.dismiss();
-            });
-            dialog.show();
+        mShowCVBtn.setOnClickListener(v->{
+            Log.e("cv", student.getCv());
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.KEY_CV_URL, student.getCv());
+            bundle.putString(Constants.KEY_FILE_NAME, student.getName());
+            navController.navigate(R.id.action_Student_to_ViewCVFragment, bundle);
         });
-        mReject.setOnClickListener(v->{
-            LayoutInflater factory = LayoutInflater.from(context);
-            final View view1 = factory.inflate(R.layout.dialog_reject_reuqest, null);
-            final AlertDialog dialog = new AlertDialog.Builder(context).create();
-            dialog.setView(view1);
-            dialog.setCanceledOnTouchOutside(true);
+        mUserNameTV.setText(student.getUserName());
+        mNameTV.setText(student.getName());
+        mPhoneTV.setText(student.getPhone());
+        mEmailTV.setText(student.getEmail());
+        mBirthDateTV.setText(student.getBirthDate());
+        mPlaceOfStudyTV.setText(student.getStudyPlace());
+        mTypeOfStudyTV.setText(student.getStudyType());
+        mStartOfStudyTV.setText(student.getStudyStartDate());
+        mEndOfStudyTV.setText(student.getStudyEndDate().isEmpty() || student.getStudyEndDate() == null ? "----" : student.getStudyEndDate());
+        mGender.setText(student.getGender() == Constants.MALE ? Constants.MALE_TXT : Constants.FEMALE_TXT);
+        if(student.isStudyIsGoing()){
+            mOnGoingCB.setVisibility(View.VISIBLE);
+        }else{
+            mOnGoingCB.setVisibility(View.GONE);
+        }
+        mOnGoingCB.setChecked(student.isStudyIsGoing());
 
-            TextView yes = view1.findViewById(R.id.yes_btn);
-            TextView no = view1.findViewById(R.id.no_btn);
-            yes.setOnClickListener(l->{
-                onRequestButtonClicked.onRejectSelected(id);
-                dialog.dismiss();
-            });
-            no.setOnClickListener(l->{
-                dialog.dismiss();
-            });
-            dialog.show();
-        });
-
-        getStudentInfo(id);
-        getCourses(id);
-        getInterests(id);
+        getCourses(String.valueOf(student.getId()));
+        getInterests(String.valueOf(student.getId()));
     }
 
-    private void getStudentInfo(String id) {
-        String url = Urls.GET_STUDENT_INFO;
-        AndroidNetworking.post(url)
-                .addBodyParameter("id", id)
+
+    public void getCourses(String id) {
+        courseList = new ArrayList<Course>();
+
+        pDialog.show();
+
+        String url = Urls.GET_COURSES;
+        AndroidNetworking.get(url)
+                .addQueryParameter("user_id", id)
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // do anything with response
                         try {
-                            student = new Student(
-                                    Integer.parseInt(response.getString("id")),
-                                    response.getString("user_name"),
-                                    response.getString("name") + response.getString("nick_name"),
-                                    response.getString("phone"),
-                                    response.getString("email"),
-                                    response.getString("birth_date"),
-                                    Integer.parseInt(response.getString("gender")),
-                                    response.getString("study_type"),
-                                    response.getString("study_place"),
-                                    response.getString("study_start"),
-                                    response.getString("study_end_date"),
-                                    response.getBoolean("is_going"),
-                                    response.getString("cv")
-                            );
-                            mUserNameTV.setText(student.getUserName());
-                            mNameTV.setText(student.getName());
-                            mPhoneTV.setText(student.getPhone());
-                            mEmailTV.setText(student.getEmail());
-                            mGender.setText(student.getGender()==Constants.MALE?Constants.MALE_TXT:Constants.FEMALE_TXT);
-                            mBirthDateTV.setText(student.getBirthDate());
-                            mPlaceOfStudyTV.setText(student.getPlaceOfStudy());
-                            mTypeOfStudyTV.setText(student.getTypeOfStudy());
-                            mStartOfStudyTV.setText(student.getStartOfStudy());
-                            mEndOfStudyTV.setText(student.getEndOfStudy().isEmpty()||student.getEndOfStudy() == null?"----":student.getEndOfStudy());
-                            mOnGoingCB.setChecked(student.isStudyIsGoing());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.e("amn catch", e.getMessage() );
-                        }
-                    }
-                    @Override
-                    public void onError(ANError anError) {
-                        Toast.makeText(context, anError.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("main", anError.getMessage());
-                    }
-                });
-    }
-
-    public void getCourses(String id) {
-        courseList = new ArrayList<Course>();
-        final ProgressDialog pDialog = new ProgressDialog(getContext());
-        pDialog.setMessage("Processing Please wait...");
-        pDialog.show();
-
-        String url = Urls.GET_COURSES;
-        AndroidNetworking.post(url)
-                .addBodyParameter("id", id)
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject obj = response.getJSONObject(0);
-                                courseList.add(
-                                        new Course(
-                                                Integer.parseInt(obj.getString("id")),
-                                                obj.getString("name"),
-                                                obj.getString("institution"),
-                                                obj.getString("start_date"),
-                                                obj.getString("end_date")
-                                        )
-                                );
-
+                            JSONObject jsonObject = response;
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            String message = jsonObject.getString("message");
+                            String successMessage = "Saved";
+                            if (message.toLowerCase().contains(successMessage.toLowerCase())) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject obj = jsonArray.getJSONObject(0);
+                                    courseList.add(
+                                            new Course(
+                                                    Integer.parseInt(obj.getString("id")),
+                                                    obj.getString("course_name"),
+                                                    obj.getString("institution"),
+                                                    obj.getString("start_date").substring(0,10),
+                                                    obj.getString("end_date").substring(0,10)
+                                            )
+                                    );
+                                }
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.error_load_data), Toast.LENGTH_SHORT).show();
                             }
                             pDialog.dismiss();
                             CoursesAdapter coursesAdapter = new CoursesAdapter(context, courseList);
                             mCoursesRV.setAdapter(coursesAdapter);
                         } catch (Exception e) {
-                            e.printStackTrace();
                             pDialog.dismiss();
-
+                            Log.e("courses catch", e.getMessage());
                         }
                     }
 
                     @Override
-                    public void onError(ANError error) {
+                    public void onError(ANError anError) {
                         pDialog.dismiss();
-                        Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("courses AnError", anError.getErrorBody());
                     }
                 });
     }
     public void getInterests(String id) {
         interestList = new ArrayList<Interest>();
-        final ProgressDialog pDialog = new ProgressDialog(getContext());
-        pDialog.setMessage("Processing Please wait...");
         pDialog.show();
 
         String url = Urls.GET_INTERESTS;
-        AndroidNetworking.post(url)
-                .addBodyParameter("id", id)
+        AndroidNetworking.get(url)
+                .addQueryParameter("user_id", id)
                 .setPriority(Priority.MEDIUM)
                 .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
+                .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject obj = response.getJSONObject(0);
-                                interestList.add(
-                                        new Interest(
-                                                Integer.parseInt(obj.getString("id")),
-                                                obj.getString("interest")
-                                        )
-                                );
+                            JSONObject jsonObject = response;
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            String message = jsonObject.getString("message");
+                            String successMessage = "Saved";
+                            if (message.toLowerCase().contains(successMessage.toLowerCase())) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject obj = jsonArray.getJSONObject(0);
+                                    interestList.add(
+                                            new Interest(
+                                                    Integer.parseInt(obj.getString("id")),
+                                                    obj.getString("interest_name")
+                                            )
+                                    );
+                                }
+                                InterestsAdapter interestsAdapter = new InterestsAdapter(context, interestList);
+                                mInterestsRV.setAdapter(interestsAdapter);
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.error_load_data), Toast.LENGTH_SHORT).show();
                             }
                             pDialog.dismiss();
-                            InterestsAdapter interestsAdapter = new InterestsAdapter(context, interestList);
-                            mInterestsRV.setAdapter(interestsAdapter);
                         } catch (Exception e) {
-                            e.printStackTrace();
                             pDialog.dismiss();
+                            Log.e("interests catch", e.getMessage());
                         }
                     }
                     @Override
-                    public void onError(ANError error) {
+                    public void onError(ANError anError) {
                         pDialog.dismiss();
-                        Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("interests AnError", anError.getErrorBody());
                     }
                 });
     }

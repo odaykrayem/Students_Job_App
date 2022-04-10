@@ -63,6 +63,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/layout_btns"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -100,7 +101,33 @@
                 android:gravity="center"
                 />
         </LinearLayout>
-
+        <LinearLayout
+            android:id="@+id/layout_status"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="end"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"
+            >
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="@string/refuse"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_status_rejected"
+                android:gravity="center"
+                android:layout_marginBottom="5dp"
+                />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

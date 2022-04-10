@@ -3,11 +3,11 @@ package com.example.students_job_app.model;
 public class Interest {
 
     private int id;
-    private String tag;
+    private String interestName;
 
     public Interest(int id, String tag) {
         this.id = id;
-        this.tag = tag;
+        this.interestName = tag;
     }
 
     public int getId() {
@@ -19,11 +19,11 @@ public class Interest {
     }
 
     public String getTag() {
-        return tag;
+        return interestName;
     }
 
     public void setTag(String tag) {
-        this.tag = tag;
+        this.interestName = tag;
     }
 
 

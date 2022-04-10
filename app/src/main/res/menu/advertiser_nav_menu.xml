@@ -19,7 +19,7 @@
         <item
         android:id="@+id/menu_advertiser_profile"
         android:icon="@drawable/ic_profile"
-        android:title="@string/jobs_list"
+        android:title="@string/title_profile"
         android:actionLayout="@layout/fragment_advertiser_profile"
         />
         <item

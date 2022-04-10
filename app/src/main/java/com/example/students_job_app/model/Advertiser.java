@@ -3,31 +3,37 @@ package com.example.students_job_app.model;
 public class Advertiser {
 
     private int id;
-    private String companyName;
+    private String advertiserName;
     private String phone;
     private String email;
     private String website;
-    private String location;
+    private String address;
+    private String description;
     private String professional_field;
     private String years_of_incorporation;
 
-    public Advertiser(int id, String companyName, String phone, String email, String website, String location, String professional_field, String years_of_incorporation) {
+    public Advertiser(int id, String name, String phone, String email, String website, String description, String address, String professional_field, String years_of_incorporation) {
         this.id = id;
-        this.companyName = companyName;
+        this.advertiserName = name;
         this.phone = phone;
         this.email = email;
         this.website = website;
-        this.location = location;
+        this.description = description;
+        this.address = address;
         this.professional_field = professional_field;
         this.years_of_incorporation = years_of_incorporation;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getAdvertiserName() {
+        return advertiserName;
     }
 
     public String getPhone() {
@@ -42,8 +48,8 @@ public class Advertiser {
         return website;
     }
 
-    public String getLocation() {
-        return location;
+    public String getAddress() {
+        return address;
     }
 
     public String getProfessional_field() {

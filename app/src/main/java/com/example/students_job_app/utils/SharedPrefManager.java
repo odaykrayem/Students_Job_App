@@ -4,10 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.students_job_app.model.Advertiser;
-import com.example.students_job_app.model.Course;
 import com.example.students_job_app.model.Student;
-
-import java.util.ArrayList;
 
 
 public class SharedPrefManager {
@@ -18,6 +15,7 @@ public class SharedPrefManager {
     private static final String KEY_ID = "keyid";
     private static final String KEY_USER_NAME = "keyusername";
     private static final String KEY_NAME = "keyname";
+    private static final String KEY_NICKNAME = "keynickname";
     private static final String KEY_EMAIL = "keyemail";
     private static final String KEY_PHONE = "keyphone";
     private static final String KEY_BIRTH_DATE = "keybirthdate";
@@ -28,14 +26,20 @@ public class SharedPrefManager {
     private static final String KEY_STUDY_END = "keystudyend";
     private static final String KEY_CV = "keycv";
     private static final String KEY_STUDY_IS_GOING = "keyisgoing";
-
+    private static final String KEY_USER_BILL_ID = "keystbillid";
+    private static final String KEY_USER_HAS_BILL = "keysthasbill";
+    private static final String KEY_USER_BILL_AMOUNT = "keystbillamount";
     private static final String KEY_USER_TYPE = "keyusertype";
+
 
     private static final String KEY_ADV_LOCATION = "keyadvloaction";
     private static final String KEY_ADV_YEARS_OF_INC= "keyadvyears";
     private static final String KEY_ADV_FIELD = "keyadvfield";
     private static final String KEY_ADV_WEBSITE = "keyadvwebsite";
+    private static final String KEY_ADV_DESCRIPTION = "keyadvdescr";
+    private static final String KEY_VERIFIED = "keyverified";
 
+    private static final String KEY_VERIFY_CODE = "keyverifycode";
     private static SharedPrefManager mInstance;
     private static Context context;
 
@@ -55,15 +59,15 @@ public class SharedPrefManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(KEY_ID, student.getId());
         editor.putString(KEY_NAME, student.getName());
-        editor.putString(KEY_USER_NAME, student.getName());
+        editor.putString(KEY_USER_NAME, student.getUserName());
         editor.putString(KEY_EMAIL, student.getEmail());
         editor.putString(KEY_PHONE, student.getPhone());
         editor.putString(KEY_BIRTH_DATE, student.getBirthDate());
         editor.putInt(KEY_GENDER, student.getGender());
-        editor.putString(KEY_STUDY_TYPE, student.getTypeOfStudy());
-        editor.putString(KEY_STUDY_PLACE, student.getPlaceOfStudy());
-        editor.putString(KEY_STUDY_START, student.getStartOfStudy());
-        editor.putString(KEY_STUDY_END, student.getEndOfStudy());
+        editor.putString(KEY_STUDY_TYPE, student.getStudyType());
+        editor.putString(KEY_STUDY_PLACE, student.getStudyPlace());
+        editor.putString(KEY_STUDY_START, student.getStudyStartDate());
+        editor.putString(KEY_STUDY_END, student.getStudyEndDate());
         editor.putBoolean(KEY_STUDY_IS_GOING, student.isStudyIsGoing());
         editor.putString(KEY_CV, student.getCv());
         editor.putInt(KEY_USER_TYPE, Constants.USER_TYPE_STUDENT);
@@ -87,35 +91,71 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(KEY_ID, advertiser.getId());
-        editor.putString(KEY_NAME, advertiser.getCompanyName());
+        editor.putString(KEY_NAME, advertiser.getAdvertiserName());
         editor.putString(KEY_PHONE, advertiser.getPhone());
         editor.putString(KEY_EMAIL, advertiser.getEmail());
         editor.putString(KEY_ADV_WEBSITE, advertiser.getWebsite());
-        editor.putString(KEY_ADV_LOCATION, advertiser.getLocation());
+        editor.putString(KEY_ADV_LOCATION, advertiser.getAddress());
         editor.putString(KEY_ADV_FIELD, advertiser.getProfessional_field());
         editor.putString(KEY_ADV_YEARS_OF_INC, advertiser.getYears_of_incorporation());
         editor.putInt(KEY_USER_TYPE, Constants.USER_TYPE_ADVERTISER);
 
         editor.apply();
     }
-    public void advertiserUpdate(String name, String phone , String website,  String location, String years_of_incor, String professional_fields) {
+    public void advertiserUpdate(String name, String phone , String website,  String address, String years_of_incor, String professional_fields) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_NAME,name );
         editor.putString(KEY_PHONE, phone);
         editor.putString(KEY_ADV_WEBSITE, website);
-        editor.putString(KEY_ADV_LOCATION,location );
+        editor.putString(KEY_ADV_LOCATION,address );
         editor.putString(KEY_ADV_FIELD, years_of_incor);
         editor.putString(KEY_ADV_YEARS_OF_INC, professional_fields);
         editor.apply();
     }
 
+    public void setHasBill(int billID,boolean hasBill, int amount){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY_USER_BILL_ID,billID );
+        editor.putBoolean(KEY_USER_HAS_BILL,hasBill );
+        editor.putInt(KEY_USER_BILL_AMOUNT,amount);
+        editor.apply();
+    }
+
+    public int getBillID() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(KEY_USER_BILL_ID, -1);
+    }
+    public boolean hasBill(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(KEY_USER_HAS_BILL, false);
+    }
+    public int getBillAmount(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(KEY_USER_BILL_AMOUNT, -1);
+    }
     //this method will check whether user is already logged in or not
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getInt(KEY_ID, -1) != -1;
     }
 
+
+    public void setVerified(boolean verified) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(KEY_VERIFIED, verified);
+        editor.apply();
+
+    }
+    public void setVerificationCode(String verificationCode) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_VERIFY_CODE, verificationCode);
+        editor.apply();
+
+    }
     //this method will give the logged in user id
     public int getUserId() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -149,6 +189,7 @@ public class SharedPrefManager {
                 sharedPreferences.getString(KEY_PHONE, null),
                 sharedPreferences.getString(KEY_EMAIL, null),
                 sharedPreferences.getString(KEY_ADV_WEBSITE, null),
+                sharedPreferences.getString(KEY_ADV_DESCRIPTION, null),
                 sharedPreferences.getString(KEY_ADV_LOCATION, null),
                 sharedPreferences.getString(KEY_ADV_FIELD, null),
                 sharedPreferences.getString(KEY_ADV_YEARS_OF_INC, null)

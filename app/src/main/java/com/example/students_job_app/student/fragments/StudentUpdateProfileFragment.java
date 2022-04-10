@@ -114,8 +114,8 @@ public class StudentUpdateProfileFragment extends Fragment {
         });
     }
 
+    //TODO SHOW CV
     private void update() {
-        //todo api
         String url = Urls.UPDATE_STUDENT;
         String id = String.valueOf(SharedPrefManager.getInstance(context).getUserId());
         Validation.setEnabled(context,false,  mNameET, mUserNameET, mPhoneET, mPlaceOfStudyET, mTypeOfStudyET, mStudyEndDateET);

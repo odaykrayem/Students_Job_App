@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,17 +33,18 @@ import org.json.JSONObject;
 
 public class AddInterestFragment extends Fragment {
 
-    Context ctx;
+    Context context;
     EditText mInterestET;
     Button mAddInterestBtn;
     ProgressDialog pDialog;
+    NavController navController;
 
     public AddInterestFragment() {}
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.ctx = context;
+        this.context = context;
     }
 
     @Override
@@ -55,12 +58,13 @@ public class AddInterestFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mInterestET = view.findViewById(R.id.interest);
         mAddInterestBtn = view.findViewById(R.id.add_interest);
-        pDialog = new ProgressDialog(ctx);
+        pDialog = new ProgressDialog(context);
         pDialog.setCancelable(false);
         pDialog.setMessage("Processing please wait ...");
+        navController = Navigation.findNavController(view);
 
         mAddInterestBtn.setOnClickListener(v->{
-            if(Validation.validateInput(ctx, mInterestET)){
+            if(Validation.validateInput(context, mInterestET)){
                 addInterest();
             }
         });
@@ -69,13 +73,13 @@ public class AddInterestFragment extends Fragment {
     private void addInterest() {
         String url = Urls.ADD_INTEREST;
         String interest = mInterestET.getText().toString().trim();
-        int id = SharedPrefManager.getInstance(ctx).getUserId();
 
         mAddInterestBtn.setEnabled(false);
         pDialog.show();
+        String userId = String.valueOf(SharedPrefManager.getInstance(context).getUserId());
 
         AndroidNetworking.post(url)
-                .addBodyParameter("student_id", String.valueOf(id))
+                .addBodyParameter("student_id", userId)
                 .addBodyParameter("interest", interest)
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -83,28 +87,50 @@ public class AddInterestFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-
-                            if(response.equals("true")){
-                                Toast.makeText(ctx, ctx.getResources().getString(R.string.course_added), Toast.LENGTH_SHORT).show();
+                            //converting response to json object
+                            JSONObject obj = response;
+                            String message = obj.getString("message");
+                            String userFounded = "Saved";
+                            //if no error in response
+                            if (message.toLowerCase().contains(userFounded.toLowerCase())) {
+                                Toast.makeText(context, context.getResources().getString(R.string.add_interest_success), Toast.LENGTH_SHORT).show();
+                                navController.popBackStack();
                             }else{
-                                Toast.makeText(ctx, ctx.getResources().getString(R.string.course_added_error), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, context.getResources().getString(R.string.post_job_error), Toast.LENGTH_SHORT).show();
                             }
-                            mAddInterestBtn.setEnabled(true);
                             pDialog.dismiss();
-                        } catch (Exception e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.e("addInterest catch", e.getMessage() );
-                            mAddInterestBtn.setEnabled(true);
                             pDialog.dismiss();
+                            Log.e("addInterest", e.getMessage());
                         }
                     }
                     @Override
                     public void onError(ANError anError) {
-                        Toast.makeText(ctx, anError.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("addInterestError", anError.getMessage());
                         pDialog.dismiss();
-                        mAddInterestBtn.setEnabled(true);
-
+                        Log.e("addInterestError", anError.getErrorBody());
+                        try {
+                            JSONObject error = new JSONObject(anError.getErrorBody());
+                            JSONObject data = error.getJSONObject("data");
+                            Toast.makeText(context, error.getString("message"), Toast.LENGTH_SHORT).show();
+                            if (data.has("student_id")) {
+                                Toast.makeText(context, data.getJSONArray("student_id").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("course_name")) {
+                                Toast.makeText(context, data.getJSONArray("course_name").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("institution")) {
+                                Toast.makeText(context, data.getJSONArray("institution").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("start_date")) {
+                                Toast.makeText(context, data.getJSONArray("start_date").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            if (data.has("end_date")) {
+                                Toast.makeText(context, data.getJSONArray("end_date").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }

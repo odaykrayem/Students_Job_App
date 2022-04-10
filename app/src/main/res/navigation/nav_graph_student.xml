@@ -24,10 +24,11 @@
         />
     <fragment
         android:id="@+id/menu_applications"
-        android:name="com.example.students_job_app.student.fragments.StudentProfileFragment"
+        android:name="com.example.students_job_app.student.fragments.MyApplicationsFragment"
         android:label="@string/title_applications"
         tools:layout="@layout/fragment_my_applications"
         />
+
     <fragment
         android:id="@+id/menu_student_profile"
         android:name="com.example.students_job_app.student.fragments.StudentProfileFragment"
@@ -38,8 +39,17 @@
             android:id="@+id/action_profileFragment_to_updateProfileFragment"
             app:destination="@id/UpdateProfileFragment"
             app:popUpTo="@id/menu_student_profile" />
+        <action
+            android:id="@+id/action_Student_to_ViewCVFragment"
+            app:destination="@id/StudentCVView"
+            app:popUpTo="@id/StudentDetailsFragment" />
     </fragment>
     <fragment
+        android:id="@+id/StudentCVView"
+        android:name="com.example.students_job_app.student.fragments.CVViewFragment"
+        android:label="@string/student_cv"
+        tools:layout="@layout/fragment_cv_view"
+        />    <fragment
         android:id="@+id/UpdateProfileFragment"
         android:name="com.example.students_job_app.student.fragments.StudentUpdateProfileFragment"
         android:label="@string/title_update_profile"

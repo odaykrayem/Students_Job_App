@@ -8,6 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
+    tools:context=".student.fragments.StudentProfileFragment"
     android:layoutDirection="ltr">
 
     <LinearLayout
@@ -34,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/hint_user_name"
                     android:textSize="18sp"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:padding="12dp"
                     android:alpha="0.6"
                     android:singleLine="true"
@@ -44,12 +45,14 @@
                     android:id="@+id/user_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:textSize="18sp"
                     android:text="job seeker"
                     android:padding="12dp"
                     android:singleLine="true"
-                    android:textColor="@color/input_login" />
+                    android:textColor="@color/input_login"
+                    android:gravity="center"
+                    />
 
             </LinearLayout>
 
@@ -63,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/hint_name"
                     android:textSize="18sp"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:padding="12dp"
                     android:alpha="0.6"
                     android:singleLine="true"
@@ -73,42 +76,18 @@
                     android:id="@+id/name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:textSize="18sp"
                     android:text="Shahad"
                     android:padding="12dp"
                     android:singleLine="true"
-                    android:textColor="@color/input_login" />
+                    android:textColor="@color/input_login"
+                    android:gravity="center"
+                    />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hint_nick_name"
-                    android:textSize="18sp"
-                    android:layout_weight="1"
-                    android:padding="12dp"
-                    android:alpha="0.6"
-                    android:singleLine="true"
-                    android:textColor="@color/input_login" />
 
-                <TextView
-                    android:id="@+id/nick_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:textSize="18sp"
-                    android:text="Al-Huwaiti"
-                    android:padding="12dp"
-                    android:singleLine="true"
-                    android:textColor="@color/input_login" />
-
-            </LinearLayout>
 
 
             <LinearLayout
@@ -120,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/hint_phone"
                     android:textSize="18sp"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:padding="12dp"
                     android:alpha="0.6"
                     android:singleLine="true"
@@ -130,12 +109,15 @@
                     android:id="@+id/phone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:textSize="18sp"
                     android:text="0965345323"
                     android:padding="12dp"
                     android:singleLine="true"
-                    android:textColor="@color/input_login"/>
+                    android:textColor="@color/input_login"
+                    android:gravity="center"
+
+                    />
 
             </LinearLayout>
             <LinearLayout
@@ -147,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/hint_email"
                     android:textSize="18sp"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:padding="12dp"
                     android:alpha="0.6"
                     android:singleLine="true"
@@ -157,12 +139,15 @@
                     android:id="@+id/email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:textSize="18sp"
                     android:text="@string/hint_email"
                     android:padding="12dp"
                     android:singleLine="true"
-                    android:textColor="@color/input_login"/>
+                    android:textColor="@color/input_login"
+                    android:gravity="center"
+
+                    />
 
             </LinearLayout>
             <LinearLayout
@@ -174,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/hint_gender"
                     android:textSize="18sp"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:padding="12dp"
                     android:alpha="0.6"
                     android:singleLine="true"
@@ -184,12 +169,15 @@
                     android:id="@+id/gender"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:textSize="18sp"
                     android:text="@string/hint_gender"
                     android:padding="12dp"
                     android:singleLine="true"
-                    android:textColor="@color/input_login"/>
+                    android:textColor="@color/input_login"
+                    android:gravity="center"
+
+                    />
 
             </LinearLayout>
 
@@ -212,12 +200,15 @@
                     android:id="@+id/birth"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:textSize="18sp"
                     android:text="10/02/1997"
                     android:padding="12dp"
                     android:singleLine="true"
-                    android:textColor="@color/input_login" />
+                    android:textColor="@color/input_login"
+                    android:gravity="center"
+
+                    />
 
             </LinearLayout>
 
@@ -346,19 +337,19 @@
                     android:singleLine="true"
                     android:textColor="@color/input_login"
                     android:textColorHint="@color/input_login_hint" />
-                <CheckBox
-                    android:id="@+id/ongoing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ongoing"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="6dp"
-                    android:textColor="@color/black"
-                    android:buttonTint="@color/black"
-                    />
+
 
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/ongoing"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="6dp"
+                android:buttonTint="@color/black"
+                android:text="@string/ongoing"
+                android:textColor="@color/black" />
         </LinearLayout>
 
 
@@ -443,50 +434,6 @@
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"
-            android:layout_marginTop="12dp"
-            >
-            <Button
-                android:id="@+id/reject"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:text="@string/reject"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:background="@drawable/bg_status_rejected"
-                android:layout_gravity="start"
-                android:gravity="center"
-                />
-            <Button
-                android:id="@+id/accept"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:text="@string/accept"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:background="@drawable/bg_status_accepted"
-                android:layout_gravity="end"
-                android:gravity="center"
-                />
-        </LinearLayout>
-
-
-
 
     </LinearLayout>
 

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_payment_dialog"
+    android:padding="15dp"
     >
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:textStyle="bold"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="30dp"
         android:background="@color/gold"
         android:gravity="center"
         android:layout_centerHorizontal="true"
@@ -58,9 +59,6 @@
             android:padding="4dp"
             android:background="@drawable/bg_payment_input"
             />
-
-
-
 
     </RelativeLayout>
 
@@ -146,15 +144,29 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/register_btn"
-        android:layout_width="200dp"
+        android:id="@+id/credit_btn"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/date_layout"
-        android:layout_centerHorizontal="true"
         android:text="@string/_continue"
         android:background="@drawable/bg_login_btn"
         android:textAllCaps="false"
         android:padding="16dp"
         android:textColor="@color/black"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentEnd="true"/>
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date_layout"
+        android:layout_centerHorizontal="true"
+        android:text="@string/cancel"
+        android:background="@drawable/bg_login_btn"
+        android:textAllCaps="false"
+        android:padding="16dp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentStart="true"
+        />
 </RelativeLayout>

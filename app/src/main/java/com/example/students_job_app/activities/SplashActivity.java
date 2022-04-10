@@ -1,16 +1,15 @@
-package com.example.students_job_app;
+package com.example.students_job_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import com.example.students_job_app.R;
 import com.example.students_job_app.advertiser.AdvertiserMain;
 import com.example.students_job_app.student.StudentMain;
 import com.example.students_job_app.utils.Constants;
 import com.example.students_job_app.utils.SharedPrefManager;
-
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -21,7 +20,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -29,7 +27,6 @@ public class SplashActivity extends AppCompatActivity {
                 nextPhase();
             }
         }, TIME_TO_START);
-
     }
 
     private void nextPhase() {

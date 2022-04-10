@@ -18,11 +18,10 @@ public class Validation {
         }
         return true;
     }
-    public static boolean setEnabled(Context ctx,boolean isEnabled ,EditText...fields){
+    public static void setEnabled(Context ctx,boolean isEnabled ,EditText...fields){
         for (EditText editText: fields) {
            editText.setEnabled(isEnabled);
         }
-        return true;
     }
 
 }

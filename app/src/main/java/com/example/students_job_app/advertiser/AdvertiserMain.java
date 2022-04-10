@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.students_job_app.LoginActivity;
+import com.example.students_job_app.activities.LoginActivity;
 import com.example.students_job_app.R;
 import com.example.students_job_app.utils.SharedPrefManager;
 import com.google.android.material.navigation.NavigationView;

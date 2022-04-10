@@ -2,35 +2,35 @@ package com.example.students_job_app.model;
 
 public class JobApplication {
     private int id;
-    private String name;
+    private String jobTitle;
     private String company;
-    private String location;
+    private String jobLocation;
     private int status;
     private String date;
 
-    public JobApplication(int id, String name, String company, String location, int status, String date) {
+    public JobApplication(int id, String jobTitle, String company, String jobLocation, int status, String date) {
         this.id = id;
-        this.name = name;
+        this.jobTitle = jobTitle;
         this.company = company;
-        this.location = location;
+        this.jobLocation = jobLocation;
         this.status = status;
         this.date = date;
+    }
+
+    public String getJobLocation() {
+        return jobLocation;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getJobTitle() {
+        return jobTitle;
     }
 
     public String getCompany() {
         return company;
-    }
-
-    public String getLocation() {
-        return location;
     }
 
     public int getStatus() {

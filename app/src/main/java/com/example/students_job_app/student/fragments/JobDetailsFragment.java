@@ -2,44 +2,36 @@ package com.example.students_job_app.student.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.example.students_job_app.R;
-import com.example.students_job_app.student.OnButtonClickedListener;
-import com.example.students_job_app.utils.SharedPrefManager;
-import com.example.students_job_app.utils.Urls;
+import com.example.students_job_app.student.OnApplyButtonClickedListener;
 
 public class JobDetailsFragment extends Fragment {
 
-
-    Context ctx;
+    Context context;
     TextView mPosition, mCompany, mAdvertiser, mDetails, mJobLocation, mRequiredSkills, mDate;
-    String id, position, company, advertiser, details, location, requiredSkills, date;
+    String id, position, company, advertiserName, details, location, requiredSkills, date;
     Button mApplyBtn;
     public NavController navController;
 
-    OnButtonClickedListener onButtonClicked;
+    OnApplyButtonClickedListener onButtonClicked;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.ctx = context;
+        this.context = context;
     }
 
-    public JobDetailsFragment() {
-        // Required empty public constructor
-    }
+    public JobDetailsFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +40,7 @@ public class JobDetailsFragment extends Fragment {
             id = getArguments().getString("job_id");
             position = getArguments().getString("position");
             company = getArguments().getString("company");
-            advertiser = getArguments().getString("advertiser");
+            advertiserName = getArguments().getString("advertiser_name");
             details = getArguments().getString("details");
             location = getArguments().getString("location");
             requiredSkills = getArguments().getString("required_skills");
@@ -59,7 +51,6 @@ public class JobDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_job_details, container, false);
     }
 
@@ -67,7 +58,7 @@ public class JobDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPosition = view.findViewById(R.id.position);
-        mCompany = view.findViewById(R.id.company);
+        mCompany = view.findViewById(R.id.company_name);
         mAdvertiser = view.findViewById(R.id.advertiser);
         mDetails = view.findViewById(R.id.details);
         mRequiredSkills = view.findViewById(R.id.required_skills);
@@ -76,7 +67,7 @@ public class JobDetailsFragment extends Fragment {
         mApplyBtn = view.findViewById(R.id.apply);
         mPosition.setText(position);
         mCompany.setText(company);
-        mAdvertiser.setText(advertiser);
+        mAdvertiser.setText(advertiserName);
         mDetails.setText(details);
         mRequiredSkills.setText(requiredSkills);
         mJobLocation.setText(location);
@@ -84,9 +75,10 @@ public class JobDetailsFragment extends Fragment {
 
         mApplyBtn.setOnClickListener(v->{
 
-            LayoutInflater factory = LayoutInflater.from(ctx);
+            mApplyBtn.setEnabled(false);
+            LayoutInflater factory = LayoutInflater.from(context);
             final View view1 = factory.inflate(R.layout.dialog_confirm_application, null);
-            final AlertDialog dialog = new AlertDialog.Builder(ctx).create();
+            final AlertDialog dialog = new AlertDialog.Builder(context).create();
             dialog.setView(view1);
             dialog.setCanceledOnTouchOutside(true);
 
@@ -94,13 +86,15 @@ public class JobDetailsFragment extends Fragment {
             TextView no = view1.findViewById(R.id.no_btn);
             yes.setOnClickListener(l->{
                 //Interface is in JobsOpportunities Fragment
-                onButtonClicked.onButtonClicked(String.valueOf(id));
+                onButtonClicked.onApplyButtonClicked(id);
                 dialog.dismiss();
+                mApplyBtn.setEnabled(true);
                 navController.popBackStack();
             });
 
             no.setOnClickListener(l->{
                 dialog.dismiss();
+                mApplyBtn.setEnabled(true);
             });
             dialog.show();
         });

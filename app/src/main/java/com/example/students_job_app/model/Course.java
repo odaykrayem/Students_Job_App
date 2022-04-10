@@ -3,16 +3,16 @@ package com.example.students_job_app.model;
 public class Course {
 
     private int id;
-    private String name;
+    private String courseName;
     private String institution;
     private String startDate;
     private String EndDate;
 
 
 
-    public Course(int id, String name, String institution, String startDate, String endDate) {
+    public Course(int id, String courseName, String institution, String startDate, String endDate) {
         this.id = id;
-        this.name = name;
+        this.courseName = courseName;
         this.institution = institution;
         this.startDate = startDate;
         EndDate = endDate;
@@ -22,8 +22,8 @@ public class Course {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getCourseName() {
+        return courseName;
     }
 
     public String getInstitution() {
@@ -42,8 +42,8 @@ public class Course {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public void setInstitution(String institution) {

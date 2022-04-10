@@ -46,7 +46,6 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_input"
             android:hint="@string/hint_course_name"
-            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
@@ -59,7 +58,6 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_input"
             android:hint="@string/hint_start_of_study"
-            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"
@@ -67,7 +65,7 @@
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
-            android:focusableInTouchMode="false" />
+            android:focusableInTouchMode="false"/>
 
 
         <EditText
@@ -77,7 +75,6 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_input"
             android:hint="@string/hint_end_of_study"
-            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_login"

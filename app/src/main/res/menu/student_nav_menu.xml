@@ -11,19 +11,18 @@
         android:id="@+id/menu_applications"
         android:icon="@drawable/ic_request"
         android:title="@string/title_applications"
-        android:actionLayout="@layout/fragment_job_opportunities"
+        android:actionLayout="@layout/fragment_my_applications"
         />
     <item
         android:id="@+id/menu_student_profile"
         android:icon="@drawable/ic_profile"
-        android:title="@string/jobs_requests"
-        android:actionLayout="@layout/fragment_my_applications"
+        android:title="@string/title_profile"
+        android:actionLayout="@layout/fragment_student_profile"
         />
     <item
         android:id="@+id/menu_logout"
         android:icon="@drawable/ic_logout"
-        android:title="@string/jobs_requests"
-        android:actionLayout="@layout/fragment_my_applications"
+        android:title="@string/logout"
         />
 
 </group>

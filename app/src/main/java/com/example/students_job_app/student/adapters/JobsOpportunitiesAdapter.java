@@ -7,17 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.students_job_app.R;
 import com.example.students_job_app.model.JobOpportunity;
-import com.example.students_job_app.student.OnButtonClickedListener;
-
+import com.example.students_job_app.student.OnApplyButtonClickedListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +24,12 @@ public class JobsOpportunitiesAdapter extends RecyclerView.Adapter<JobsOpportuni
     private List<JobOpportunity> list;
     public NavController navController;
 
-    OnButtonClickedListener onButtonClicked;
+    OnApplyButtonClickedListener onButtonClicked;
 
-    public JobsOpportunitiesAdapter(Context context, ArrayList<JobOpportunity> list) {
+    public JobsOpportunitiesAdapter(Context context, ArrayList<JobOpportunity> list, OnApplyButtonClickedListener onButtonClicked) {
         this.context = context;
         this.list = list;
+        this.onButtonClicked = onButtonClicked;
     }
 
     @NonNull
@@ -49,9 +47,9 @@ public class JobsOpportunitiesAdapter extends RecyclerView.Adapter<JobsOpportuni
 
         JobOpportunity item = list.get(position);
 
-        holder.jobName.setText(item.getName());
+        holder.jobName.setText(item.getTitle());
         holder.company.setText(item.getCompany());
-        holder.jobLocation.setText(item.getLocation());
+        holder.jobLocation.setText(item.getJobLocation());
 
         holder.apply.setOnClickListener(v->{
             LayoutInflater factory = LayoutInflater.from(context);
@@ -64,7 +62,7 @@ public class JobsOpportunitiesAdapter extends RecyclerView.Adapter<JobsOpportuni
             TextView no = view1.findViewById(R.id.no_btn);
             yes.setOnClickListener(l->{
                 //Interface is in JobsOpportunities Fragment
-                onButtonClicked.onButtonClicked(String.valueOf(item.getId()));
+                onButtonClicked.onApplyButtonClicked(String.valueOf(item.getId()));
                 dialog.dismiss();
             });
 
@@ -79,11 +77,11 @@ public class JobsOpportunitiesAdapter extends RecyclerView.Adapter<JobsOpportuni
             bundle.putString("job_id", String.valueOf(item.getId()));
             bundle.putString("position", item.getPosition());
             bundle.putString("company", item.getCompany());
-            bundle.putString("company", item.getAdvertiser());
+            bundle.putString("advertiser_name", item.getAdvertiserName());
             bundle.putString("details", item.getDetails());
             bundle.putString("required_skills", item.getRequired_skills());
-            bundle.putString("location", item.getLocation());
-            bundle.putString("date", item.getDate());
+            bundle.putString("location", item.getJobLocation());
+            bundle.putString("date", item.getCreated_at());
             navController.navigate(R.id.action_jobsFragment_to_jobDetailsFragment,bundle);
         });
     }
@@ -100,8 +98,8 @@ public class JobsOpportunitiesAdapter extends RecyclerView.Adapter<JobsOpportuni
 
         public ViewHolder(View itemView) {
             super(itemView);
-            this.jobName = itemView.findViewById(R.id.job_name);
-            this.company = itemView.findViewById(R.id.company);
+            this.jobName = itemView.findViewById(R.id.job_title);
+            this.company = itemView.findViewById(R.id.company_name);
             this.jobLocation = itemView.findViewById(R.id.job_location);
             this.apply = itemView.findViewById(R.id.apply);
         }

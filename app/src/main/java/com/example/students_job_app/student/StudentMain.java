@@ -2,7 +2,6 @@ package com.example.students_job_app.student;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -16,13 +15,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.students_job_app.LoginActivity;
+import com.example.students_job_app.activities.LoginActivity;
 import com.example.students_job_app.R;
 import com.example.students_job_app.utils.SharedPrefManager;
 import com.google.android.material.navigation.NavigationView;
 
-public class StudentMain extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener {
+public class StudentMain extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener{
 
+    private static final int REQUEST_CODE_PAYMENT = 1;
     public Toolbar toolbar;
 
     public DrawerLayout drawerLayout;
@@ -118,16 +118,11 @@ public class StudentMain extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
+    @Override
+    public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {}
 
     @Override
-    public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-
-    }
-
-    @Override
-    public void onDrawerOpened(@NonNull View drawerView) {
-
-    }
+    public void onDrawerOpened(@NonNull View drawerView) {}
 
     @Override
     public void onDrawerClosed(@NonNull View drawerView) {
@@ -135,7 +130,6 @@ public class StudentMain extends AppCompatActivity implements NavigationView.OnN
     }
 
     @Override
-    public void onDrawerStateChanged(int newState) {
+    public void onDrawerStateChanged(int newState) {}
 
-    }
 }

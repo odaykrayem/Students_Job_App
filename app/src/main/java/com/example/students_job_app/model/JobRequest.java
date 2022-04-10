@@ -6,6 +6,7 @@ public class JobRequest {
     private String studentName;
     private String date;
     private int status;
+    private Student student;
 
     public JobRequest(int id, String job_title, String studentName, String date, int status) {
         this.id = id;
@@ -13,6 +14,23 @@ public class JobRequest {
         this.studentName = studentName;
         this.date = date;
         this.status = status;
+    }
+
+    public JobRequest(int id, String job_title, String studentName, String date, int status, Student student) {
+        this.id = id;
+        this.job_title = job_title;
+        this.studentName = studentName;
+        this.date = date;
+        this.status = status;
+        this.student = student;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public int getId() {
