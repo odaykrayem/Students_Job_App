@@ -3,7 +3,10 @@ package com.example.students_job_app.utils;
 public class Urls {
 
     public static final String BASE_URL = "http://std.scit.co/std-jobs/public/api/";
+//    public static final String BASE_URL = "http://192.168.43.130/std-student-job/public/api/";
     public static final String BASE_URL_FILE = "http://std.scit.co/std-jobs/public/";
+//    public static final String BASE_URL_FILE = "http://192.168.43.130/std-student-job/public/";
+
 
     public static final String LOG_IN = BASE_URL + "login";
     public static final String EMAIL_VERIFICATION = BASE_URL + "";

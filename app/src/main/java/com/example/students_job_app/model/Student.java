@@ -36,7 +36,7 @@ public class Student implements Serializable {
         this.studyStartDate = studyStartDate;
         this.studyEndDate = studyEndDate;
         this.studyIsGoing = studyIsGoing;
-        this.cv = Urls.BASE_URL_FILE +  cv;
+        this.cv =  cv;
     }
 
     public int getId() {

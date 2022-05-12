@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     userJson.getString("study_type"),
                                                     userJson.getString("study_place"),
                                                     userJson.getString("study_start_date").substring(0,10),
-                                                    userJson.getString("study_end_date").substring(0,10),
+                                                    userJson.getString("study_end_date").equals("null")?"null":userJson.getString("study_end_date").substring(0,10),
                                                     userJson.getString("study_end_date").equals("null"),
                                                     userJson.getString("cv_url")
                                             )

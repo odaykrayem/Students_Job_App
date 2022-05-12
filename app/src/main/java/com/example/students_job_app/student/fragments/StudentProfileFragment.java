@@ -106,8 +106,9 @@ public class StudentProfileFragment extends Fragment {
 
         Student student = SharedPrefManager.getInstance(context).getStudentData();
 
+        navController = Navigation.findNavController(view);
+
         mUpdateBtn.setOnClickListener(v -> {
-            navController = Navigation.findNavController(view);
             Bundle bundle = new Bundle();
             bundle.putString(Constants.KEY_NAME, student.getName());
             bundle.putString(Constants.KEY_USER_NAME, student.getUserName());
@@ -126,7 +127,7 @@ public class StudentProfileFragment extends Fragment {
         mPlaceOfStudyTV.setText(student.getStudyPlace());
         mTypeOfStudyTV.setText(student.getStudyType());
         mStartOfStudyTV.setText(student.getStudyStartDate());
-        mEndOfStudyTV.setText(student.getStudyEndDate().isEmpty() || student.getStudyEndDate() == null ? "----" : student.getStudyEndDate());
+        mEndOfStudyTV.setText(student.getStudyEndDate().isEmpty() || student.getStudyEndDate().equals("null") ? "----" : student.getStudyEndDate());
         mGender.setText(student.getGender() == Constants.MALE ? Constants.MALE_TXT : Constants.FEMALE_TXT);
         if(student.isStudyIsGoing()){
             mOnGoingCB.setVisibility(View.VISIBLE);
@@ -137,7 +138,7 @@ public class StudentProfileFragment extends Fragment {
 
         mShowCVBtn.setOnClickListener(v->{
             Bundle bundle = new Bundle();
-            bundle.putString(Constants.KEY_CV_URL, student.getCv());
+            bundle.putString(Constants.KEY_CV_URL, Urls.BASE_URL_FILE+student.getCv());
             bundle.putString(Constants.KEY_FILE_NAME, student.getName());
             navController.navigate(R.id.action_Student_to_ViewCVFragment, bundle);
         });

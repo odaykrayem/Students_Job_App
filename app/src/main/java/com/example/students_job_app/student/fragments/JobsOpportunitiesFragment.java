@@ -141,14 +141,6 @@ public class JobsOpportunitiesFragment extends Fragment implements OnApplyButton
 
     @Override
     public void onApplyButtonClicked(String id) {
-//        if(SharedPrefManager.getInstance(context).hasBill()){
-//            int amount = SharedPrefManager.getInstance(context).getBillAmount();
-//            Toast.makeText(context, context.getResources().getString(R.string.you_have_to_pay)
-//                    , Toast.LENGTH_SHORT).show();
-//            Toast.makeText(context, context.getResources().getString(R.string.your_Paymnet) + amount, Toast.LENGTH_SHORT).show();
-//        }else{
-//            applyForJob(id);
-//        }
         hasBill(id);
     }
 
@@ -226,11 +218,11 @@ public class JobsOpportunitiesFragment extends Fragment implements OnApplyButton
                                 JSONObject jsonObject = response;
                                 String message = jsonObject.getString("message");
                                 String successMessage = "Saved";
-                                if(message.toLowerCase().contains(successMessage.toLowerCase())){
+                                if(message.toLowerCase().contains(successMessage.toLowerCase())) {
+                                    if (!response.getString("data").equals("null")) {
+                                        JSONObject data = response.getJSONObject("data");
 
-                                    JSONObject data = response.getJSONObject("data");
-
-                                        if(Integer.parseInt(data.getString("is_paid"))==0){
+                                        if (Integer.parseInt(data.getString("is_paid")) == 0) {
                                             SharedPrefManager.getInstance(context).setHasBill(
                                                     Integer.parseInt(data.getString("id")),
                                                     true,
@@ -238,20 +230,24 @@ public class JobsOpportunitiesFragment extends Fragment implements OnApplyButton
                                             );
                                             Log.e(
                                                     "bill",
-                                                    SharedPrefManager.getInstance(context).getBillID()+ "  "+
-                                                            SharedPrefManager.getInstance(context).getBillAmount()+"  "+
+                                                    SharedPrefManager.getInstance(context).getBillID() + "  " +
+                                                            SharedPrefManager.getInstance(context).getBillAmount() + "  " +
                                                             SharedPrefManager.getInstance(context).hasBill()
                                             );
                                             Toast.makeText(context, context.getResources().getString(R.string.you_have_bill), Toast.LENGTH_SHORT).show();
                                             Toast.makeText(context, context.getResources().getString(R.string.bill_amount) +
-                                                    SharedPrefManager.getInstance(context).getBillAmount()
+                                                            SharedPrefManager.getInstance(context).getBillAmount()
                                                     , Toast.LENGTH_SHORT).show();
-                                        }else{
+                                        } else {
                                             SharedPrefManager.getInstance(context).setHasBill(-1, false, -1);
                                             applyForJob(jobId);
 
                                         }
-//                                    }
+                                    }else {
+                                        SharedPrefManager.getInstance(context).setHasBill(-1, false, -1);
+                                        applyForJob(jobId);
+
+                                    }
 
                                 }else{
                                     Toast.makeText(context, context.getResources().getString(R.string.error_load_data), Toast.LENGTH_SHORT).show();

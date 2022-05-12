@@ -123,7 +123,8 @@ public class JobRequestsFragment extends Fragment implements JobRequestsAdapter.
                                             student_data.getString("study_type"),
                                             student_data.getString("study_place"),
                                             student_data.getString("study_start_date").substring(0,10),
-                                            student_data.getString("study_end_date").substring(0,10),
+                                            student_data.getString("study_end_date").equals("null")?"onGoing":
+                                                    student_data.getString("study_end_date").substring(0,10),
                                             student_data.getString("study_end_date").equals("null"),
                                             student_data.getString("cv_url")                                    );
                                     //TODO

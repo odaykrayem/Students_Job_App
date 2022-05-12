@@ -110,7 +110,7 @@ public class StudentDetailsFragment extends Fragment {
         mShowCVBtn.setOnClickListener(v->{
             Log.e("cv", student.getCv());
             Bundle bundle = new Bundle();
-            bundle.putString(Constants.KEY_CV_URL, student.getCv());
+            bundle.putString(Constants.KEY_CV_URL, Urls.BASE_URL_FILE+student.getCv());
             bundle.putString(Constants.KEY_FILE_NAME, student.getName());
             navController.navigate(R.id.action_Student_to_ViewCVFragment, bundle);
         });

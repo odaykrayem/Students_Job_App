@@ -92,7 +92,7 @@ public class MyPostedJobsFragment extends Fragment implements SwipeRefreshLayout
         pDialog = new ProgressDialog(context);
         pDialog.setCancelable(false);
         pDialog.setMessage("Processing Please wait...");
-        hasBill();
+//        hasBill();
 
         floatingActionButton.setOnClickListener(v->{
             hasBill();
@@ -181,28 +181,34 @@ public class MyPostedJobsFragment extends Fragment implements SwipeRefreshLayout
                             String successMessage = "Saved";
                             if(message.toLowerCase().contains(successMessage.toLowerCase())){
 
-                                JSONObject data = response.getJSONObject("data");
+                                if(!response.isNull("data")){
+                                    JSONObject data = response.getJSONObject("data");
 
-                                if(Integer.parseInt(data.getString("is_paid"))==0){
-                                    SharedPrefManager.getInstance(context).setHasBill(
-                                            Integer.parseInt(data.getString("id")),
-                                            true,
-                                            Integer.parseInt(data.getString("amount"))
-                                    );
-                                    Log.e(
-                                            "bill",
-                                            SharedPrefManager.getInstance(context).getBillID()+ "  "+
-                                                    SharedPrefManager.getInstance(context).getBillAmount()+"  "+
-                                                    SharedPrefManager.getInstance(context).hasBill()
-                                    );
-                                    Toast.makeText(context, context.getResources().getString(R.string.you_have_bill), Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(context, context.getResources().getString(R.string.bill_amount) +
-                                                    SharedPrefManager.getInstance(context).getBillAmount()
-                                            , Toast.LENGTH_SHORT).show();
+                                    if(Integer.parseInt(data.getString("is_paid"))==0){
+                                        SharedPrefManager.getInstance(context).setHasBill(
+                                                Integer.parseInt(data.getString("id")),
+                                                true,
+                                                Integer.parseInt(data.getString("amount"))
+                                        );
+                                        Log.e(
+                                                "bill",
+                                                SharedPrefManager.getInstance(context).getBillID()+ "  "+
+                                                        SharedPrefManager.getInstance(context).getBillAmount()+"  "+
+                                                        SharedPrefManager.getInstance(context).hasBill()
+                                        );
+                                        Toast.makeText(context, context.getResources().getString(R.string.you_have_bill), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, context.getResources().getString(R.string.bill_amount) +
+                                                        SharedPrefManager.getInstance(context).getBillAmount()
+                                                , Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        SharedPrefManager.getInstance(context).setHasBill(-1, false, -1);
+                                        navController.navigate(R.id.action_jobs_To_AddJobFragment);
+                                    }
                                 }else{
                                     SharedPrefManager.getInstance(context).setHasBill(-1, false, -1);
                                     navController.navigate(R.id.action_jobs_To_AddJobFragment);
                                 }
+
 //                                    }
 
                             }else{

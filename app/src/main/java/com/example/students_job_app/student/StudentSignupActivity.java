@@ -281,24 +281,6 @@ public class StudentSignupActivity extends AppCompatActivity {
         }
     }
 
-
-    private void verifyEmail() {
-        LayoutInflater factory = LayoutInflater.from(this);
-        final View view = factory.inflate(R.layout.dialog_verify_email, null);
-        final AlertDialog verificationDialog = new AlertDialog.Builder(this).create();
-        verificationDialog.setView(view);
-        verificationDialog.setCanceledOnTouchOutside(true);
-
-        EditText code = view.findViewById(R.id.code);
-        Button verify = view.findViewById(R.id.btn_verify_code);
-        verify.setOnClickListener(v->{
-            if(!code.getText().toString().trim().isEmpty()){
-                sendVerificationRequest(code.getText().toString().trim());
-                verificationDialog.dismiss();
-            }
-        });
-        verificationDialog.show();
-    }
     private void sendVerificationRequest(String code) {
 
         String url = Urls.EMAIL_VERIFICATION;
@@ -404,6 +386,7 @@ public class StudentSignupActivity extends AppCompatActivity {
                                             object.getString("study_type"),
                                             object.getString("study_place"),
                                             object.getString("study_start_date").substring(0,10),
+                                            object.getString("study_end_date").equals("null")?"":
                                             object.getString("study_end_date").substring(0,10),
                                             object.getString("study_end_date").isEmpty()|| object.getString("study_end_date").equals("null"),
                                             object.getString("cv_url")
@@ -433,8 +416,8 @@ public class StudentSignupActivity extends AppCompatActivity {
                             JSONObject error = new JSONObject(anError.getErrorBody());
                             JSONObject data = error.getJSONObject("data");
                             Toast.makeText(StudentSignupActivity.this, error.getString("message"), Toast.LENGTH_SHORT).show();
-                            if (data.has("image_url")) {
-                                Toast.makeText(getApplicationContext(), data.getJSONArray("image_url").toString(), Toast.LENGTH_SHORT).show();
+                            if (data.has("cv")) {
+                                Toast.makeText(getApplicationContext(), data.getJSONArray("cv").toString(), Toast.LENGTH_SHORT).show();
                             }
                             if (data.has("email")) {
                                 Toast.makeText(getApplicationContext(), data.getJSONArray("email").toString(), Toast.LENGTH_SHORT).show();

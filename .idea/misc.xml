@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/activity_advertiser_signup.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/activity_login.xml" value="0.15" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/activity_student_signup.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/dialog_verify_email.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_add_course.xml" value="0.16574074074074074" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_add_interest.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_add_job.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_advertiser_profile.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_advertiser_update_profile.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_job_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_job_opportunities.xml" value="0.16574074074074074" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_job_requests.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_my_applications.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_my_posted_jobs.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_student_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_student_profile.xml" value="0.16574074074074074" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/fragment_student_update_profile.xml" value="0.16574074074074074" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/layout/nav_header.xml" value="0.1" />
+        <entry key="..\:/Users/O_o/AndroidStudioProjects/Students_Job_App/app/src/main/res/menu/auto_hide_menu_items.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
