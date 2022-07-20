@@ -114,6 +114,7 @@ public class StudentProfileFragment extends Fragment {
             bundle.putString(Constants.KEY_USER_NAME, student.getUserName());
             bundle.putString(Constants.KEY_PHONE, student.getPhone());
             bundle.putString(Constants.KEY_STUDY_END, student.getStudyEndDate());
+            bundle.putString(Constants.KEY_STUDY_START, student.getStudyStartDate());
             bundle.putString(Constants.KEY_STUDY_PLACE, student.getStudyPlace());
             bundle.putString(Constants.KEY_STUDY_TYPE, student.getStudyType());
             navController.navigate(R.id.action_profileFragment_to_updateProfileFragment, bundle);
@@ -189,6 +190,7 @@ public class StudentProfileFragment extends Fragment {
         AndroidNetworking.get(url)
                 .addQueryParameter("user_id", id)
                 .setPriority(Priority.MEDIUM)
+                .doNotCacheResponse()
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
@@ -200,7 +202,8 @@ public class StudentProfileFragment extends Fragment {
                             String successMessage = "Saved";
                             if (message.toLowerCase().contains(successMessage.toLowerCase())) {
                                 for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject obj = jsonArray.getJSONObject(0);
+                                    JSONObject obj = jsonArray.getJSONObject(i);
+
                                     courseList.add(
                                             new Course(
                                                     Integer.parseInt(obj.getString("id")),
@@ -234,7 +237,7 @@ public class StudentProfileFragment extends Fragment {
     public void getInterests(String id) {
         interestList = new ArrayList<Interest>();
         pDialog.show();
-
+Log.e("id,", id);
         String url = Urls.GET_INTERESTS;
         AndroidNetworking.get(url)
                 .addQueryParameter("user_id", id)
@@ -250,7 +253,7 @@ public class StudentProfileFragment extends Fragment {
                             String successMessage = "Saved";
                             if (message.toLowerCase().contains(successMessage.toLowerCase())) {
                                 for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject obj = jsonArray.getJSONObject(0);
+                                    JSONObject obj = jsonArray.getJSONObject(i);
                                     interestList.add(
                                             new Interest(
                                                     Integer.parseInt(obj.getString("id")),

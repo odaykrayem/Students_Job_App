@@ -24,6 +24,7 @@ public class Constants {
     public static final String KEY_STUDY_TYPE = "keystudytype";
     public static final String KEY_STUDY_PLACE = "keystudy_place";
     public static final String KEY_STUDY_END = "keystudyend";
+    public static final String KEY_STUDY_START = "keystudystart";
 
     //Company update keys
     public static final String KEY_COMPANY_NAME= "keycompanyname";

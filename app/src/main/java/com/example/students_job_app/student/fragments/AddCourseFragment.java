@@ -143,6 +143,7 @@ public class AddCourseFragment extends Fragment {
                 .addBodyParameter("institution", institution)
                 .addBodyParameter("start_date", start)
                 .addBodyParameter("end_date", end)
+                .doNotCacheResponse()
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {

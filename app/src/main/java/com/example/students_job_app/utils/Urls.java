@@ -4,7 +4,7 @@ public class Urls {
 
     public static final String BASE_URL = "http://std.scit.co/std-jobs/public/api/";
 //    public static final String BASE_URL = "http://192.168.43.130/std-student-job/public/api/";
-    public static final String BASE_URL_FILE = "http://std.scit.co/std-jobs/public/";
+    public static final String BASE_URL_FILE = "http://std.scit.co/std-jobs/public/storage/upload/";
 //    public static final String BASE_URL_FILE = "http://192.168.43.130/std-student-job/public/";
 
 

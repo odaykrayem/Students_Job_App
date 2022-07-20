@@ -86,7 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                                 int userType = userJson.getInt("type");
 
                                 Log.e("uType", userType + "");
+                                Log.e("id", userJson.getString("id"));
                                 if (userType == Constants.USER_TYPE_STUDENT) {
+                                    Log.e("cv", userJson.getString("cv").split("\\\\")[2]);
                                     SharedPrefManager.getInstance(LoginActivity.this).studentLogin(
                                             new Student(
                                                     Integer.parseInt(userJson.getString("id")),
@@ -101,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     userJson.getString("study_start_date").substring(0,10),
                                                     userJson.getString("study_end_date").equals("null")?"null":userJson.getString("study_end_date").substring(0,10),
                                                     userJson.getString("study_end_date").equals("null"),
-                                                    userJson.getString("cv_url")
+                                                    userJson.getString("cv").split("\\\\")[2]
                                             )
                                     );
                                 } else {

@@ -389,7 +389,7 @@ public class StudentSignupActivity extends AppCompatActivity {
                                             object.getString("study_end_date").equals("null")?"":
                                             object.getString("study_end_date").substring(0,10),
                                             object.getString("study_end_date").isEmpty()|| object.getString("study_end_date").equals("null"),
-                                            object.getString("cv_url")
+                                            object.getString("cv")
                                     )
                             );
                                 verificationCode = object.getString("status");

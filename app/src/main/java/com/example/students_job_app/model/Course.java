@@ -8,14 +8,12 @@ public class Course {
     private String startDate;
     private String EndDate;
 
-
-
     public Course(int id, String courseName, String institution, String startDate, String endDate) {
         this.id = id;
         this.courseName = courseName;
         this.institution = institution;
         this.startDate = startDate;
-        EndDate = endDate;
+        this.EndDate = endDate;
     }
 
     public int getId() {
@@ -56,5 +54,16 @@ public class Course {
 
     public void setEndDate(String endDate) {
         EndDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", courseName='" + courseName + '\'' +
+                ", institution='" + institution + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", EndDate='" + EndDate + '\'' +
+                '}';
     }
 }

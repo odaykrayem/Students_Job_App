@@ -101,7 +101,7 @@ public class AdvertiserUpdateProfileFragment extends Fragment {
 
         AndroidNetworking.post(url)
                 .addBodyParameter("advertiser_id", advertiserId)
-                .addBodyParameter("advertiser_name", name)
+                .addBodyParameter("name", name)
                 .addBodyParameter("phone", phone)
                 .addBodyParameter("website", website)
                 .addBodyParameter("location", address)

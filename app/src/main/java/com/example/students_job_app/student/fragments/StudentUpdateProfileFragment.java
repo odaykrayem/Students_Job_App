@@ -33,7 +33,7 @@ import org.json.JSONObject;
 
 public class StudentUpdateProfileFragment extends Fragment {
     EditText mNameET, mUserNameET, mPhoneET, mPlaceOfStudyET, mTypeOfStudyET, mStudyEndDateET;
-    String  name, userName,phone, placeOfStudy,typeOfStudy, studyEndDate ;
+    String  name, userName,phone, placeOfStudy,typeOfStudy, studyEndDate, studyStartDate ;
     CheckBox mOnGoingCB;
     Button addCourseBtn, addInterestBtn, updateBtn;
     NavController navController;
@@ -57,7 +57,8 @@ public class StudentUpdateProfileFragment extends Fragment {
             name = getArguments().getString(Constants.KEY_NAME);
             userName = getArguments().getString(Constants.KEY_USER_NAME);
             phone = getArguments().getString(Constants.KEY_PHONE);
-            studyEndDate = getArguments().getString(Constants.KEY_STUDY_END);
+            studyEndDate = getArguments().getString(Constants.KEY_STUDY_END).equals("null")?"":getArguments().getString(Constants.KEY_STUDY_END);
+            studyStartDate = getArguments().getString(Constants.KEY_STUDY_START);
             typeOfStudy = getArguments().getString(Constants.KEY_STUDY_TYPE);
             placeOfStudy = getArguments().getString(Constants.KEY_STUDY_PLACE);
         }
@@ -118,7 +119,6 @@ public class StudentUpdateProfileFragment extends Fragment {
     private void update() {
         String url = Urls.UPDATE_STUDENT;
         String id = String.valueOf(SharedPrefManager.getInstance(context).getUserId());
-        Validation.setEnabled(context,false,  mNameET, mUserNameET, mPhoneET, mPlaceOfStudyET, mTypeOfStudyET, mStudyEndDateET);
         updateBtn.setEnabled(false);
         name = mNameET.getText().toString().trim();
         userName = mUserNameET.getText().toString().trim();
@@ -126,15 +126,16 @@ public class StudentUpdateProfileFragment extends Fragment {
         placeOfStudy = mPlaceOfStudyET.getText().toString().trim();
         typeOfStudy = mTypeOfStudyET.getText().toString().trim();
         studyEndDate = mStudyEndDateET.getText().toString().trim();
-
+        Log.e("id", id);
         AndroidNetworking.post(url)
-                .addBodyParameter("id", id)
+                .addBodyParameter("user_id", id)
                 .addBodyParameter("user_name", userName)
-                .addBodyParameter("name", name)
+                .addBodyParameter("nick_name", name)
                 .addBodyParameter("phone", phone)
                 .addBodyParameter("study_type", typeOfStudy)
                 .addBodyParameter("study_place", placeOfStudy)
-                .addBodyParameter("study_end_date", studyEndDate)
+                .addBodyParameter("end_study", studyEndDate)
+                .addBodyParameter("start_study", studyStartDate)
                 .addBodyParameter("user_type", "0")
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -143,31 +144,39 @@ public class StudentUpdateProfileFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         // do anything with response
                         try {
-                            if(response.equals("true"))
-                            SharedPrefManager.getInstance(context).studentUpdate(
-                                    name,
-                                    userName,
-                                    phone,
-                                    placeOfStudy,
-                                    typeOfStudy,
-                                    studyEndDate,
-                                    (studyEndDate==null || studyEndDate.isEmpty())?true:false
-                            );
-                            Validation.setEnabled(context,true,  mNameET, mUserNameET, mPhoneET, mPlaceOfStudyET, mTypeOfStudyET, mStudyEndDateET);
-                            updateBtn.setEnabled(true);
-
+                            //converting response to json object
+                            JSONObject obj = response;
+                            String message = obj.getString("message");
+                            String userFounded = "User Saved";
+                            //if no error in response
+                            if (message.toLowerCase().contains(userFounded.toLowerCase())) {
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                //getting the user from the response
+                                SharedPrefManager.getInstance(context).studentUpdate(
+                                        name,
+                                        userName,
+                                        phone,
+                                        placeOfStudy,
+                                        typeOfStudy,
+                                        studyEndDate,
+                                        (studyEndDate == null || studyEndDate.isEmpty()) ? true : false
+                                );
+                                updateBtn.setEnabled(true);
+                            }
+                            else{
+                                Toast.makeText(context, "please try again", Toast.LENGTH_SHORT).show();
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                             Log.e("amn catch", e.getMessage() );
-                            Validation.setEnabled(context,true,  mNameET, mUserNameET, mPhoneET, mPlaceOfStudyET, mTypeOfStudyET, mStudyEndDateET);
                             updateBtn.setEnabled(true);
                         }
                     }
                     @Override
                     public void onError(ANError anError) {
                         Toast.makeText(context, anError.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("main", anError.getErrorDetail());
                         Log.e("main", anError.getMessage());
-                        Validation.setEnabled(context,true,  mNameET, mUserNameET, mPhoneET, mPlaceOfStudyET, mTypeOfStudyET, mStudyEndDateET);
                         updateBtn.setEnabled(true);
 
                     }

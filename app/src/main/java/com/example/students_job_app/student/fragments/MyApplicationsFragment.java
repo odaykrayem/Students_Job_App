@@ -104,17 +104,21 @@ public class MyApplicationsFragment extends Fragment implements  SwipeRefreshLay
                                 Toast.makeText(context, context.getResources().getString(R.string.data_loaded), Toast.LENGTH_SHORT).show();
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject obj = jsonArray.getJSONObject(i);
-                                    JSONObject job_data = obj.getJSONObject("job");
-                                    list.add(
-                                            new JobApplication(
-                                                    Integer.parseInt(obj.getString("id")),
-                                                    job_data.getString("title"),
-                                                    job_data.getString("company_name"),
-                                                    job_data.getString("job_location"),
-                                                    Integer.parseInt(obj.getString("status")),
-                                                    obj.getString("created_at").substring(0, 10)
-                                            )
-                                    );
+                                    if(!obj.isNull("job"))
+                                    {
+                                        JSONObject job_data = obj.getJSONObject("job");
+                                        list.add(
+                                                new JobApplication(
+                                                        Integer.parseInt(obj.getString("id")),
+                                                        job_data.getString("title"),
+                                                        job_data.getString("company_name"),
+                                                        job_data.getString("job_location"),
+                                                        Integer.parseInt(obj.getString("status")),
+                                                        obj.getString("created_at").substring(0, 10)
+                                                )
+                                        );
+                                    }
+
                                     Log.e("stats", obj.getString("status")+"");
                                 }
                                 mAdapter = new MyApplicationsAdapter(context, list);

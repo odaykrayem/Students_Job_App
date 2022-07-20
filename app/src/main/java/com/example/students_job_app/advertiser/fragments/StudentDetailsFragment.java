@@ -156,7 +156,7 @@ public class StudentDetailsFragment extends Fragment {
                             String successMessage = "Saved";
                             if (message.toLowerCase().contains(successMessage.toLowerCase())) {
                                 for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject obj = jsonArray.getJSONObject(0);
+                                    JSONObject obj = jsonArray.getJSONObject(i);
                                     courseList.add(
                                             new Course(
                                                     Integer.parseInt(obj.getString("id")),
@@ -205,7 +205,7 @@ public class StudentDetailsFragment extends Fragment {
                             String successMessage = "Saved";
                             if (message.toLowerCase().contains(successMessage.toLowerCase())) {
                                 for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject obj = jsonArray.getJSONObject(0);
+                                    JSONObject obj = jsonArray.getJSONObject(i);
                                     interestList.add(
                                             new Interest(
                                                     Integer.parseInt(obj.getString("id")),
